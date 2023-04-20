@@ -27,7 +27,6 @@
           <div class="error-message">
           <label>Error al Iniciar sesion</label>
         </div>
-
         </form>
       </div>
     </div>
