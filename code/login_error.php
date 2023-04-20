@@ -98,6 +98,8 @@
                         <input type="password" id="password" name="password" class="form-control" required>
                     </div>
                     <button type="submit" class="btn">Login</button>
+                    
+                    <label >Error al iniciar seccion</label>
                 </form>
             </div>
         </div>
