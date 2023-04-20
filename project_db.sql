@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 20-04-2023 a las 04:36:38
+-- Tiempo de generación: 20-04-2023 a las 07:12:01
 -- Versión del servidor: 10.4.27-MariaDB
 -- Versión de PHP: 8.2.0
 
@@ -47,6 +47,13 @@ CREATE TABLE `alumnos` (
   `direccion_exacta` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `alumnos`
+--
+
+INSERT INTO `alumnos` (`id_alumno`, `nombre`, `apellidos`, `lugar_nacimiento`, `fecha_nacimiento`, `codigo_estudiante`, `id_grado`, `fecha_inscripcion`, `padecimiento_alergia`, `nombre_padre`, `nombre_madre`, `cedula_padre`, `cedula_madre`, `telefono_emergencia`, `ocupacion_padre`, `ocupacion_madre`, `direccion_exacta`) VALUES
+(1, 'Jaime', 'Suarez', 'Nose', '2005-02-19', '0011101101', 8, '2023-04-19', 'NULL', 'Jaime', 'Yessenia', '0022102y', '00229585t', '89406963', 'nose', 'nose', 'null');
+
 -- --------------------------------------------------------
 
 --
@@ -58,6 +65,14 @@ CREATE TABLE `asignaturas` (
   `nombre_asignatura` varchar(50) NOT NULL,
   `id_grado` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `asignaturas`
+--
+
+INSERT INTO `asignaturas` (`id_asignatura`, `nombre_asignatura`, `id_grado`) VALUES
+(1, 'Lengua y literatura', 9),
+(3, 'Lengua y literatura', 8);
 
 -- --------------------------------------------------------
 
@@ -74,8 +89,15 @@ CREATE TABLE `calificaciones` (
   `semestre2` float DEFAULT NULL,
   `semestre3` float DEFAULT NULL,
   `semestre4` float DEFAULT NULL,
-  `promedio_final` float DEFAULT NULL
+  `promedio_final` float GENERATED ALWAYS AS ((`semestre1` + `semestre2` + `semestre3` + `semestre4`) / 4) STORED
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `calificaciones`
+--
+
+INSERT INTO `calificaciones` (`id_calificacion`, `id_alumno`, `id_grado`, `id_asignatura`, `semestre1`, `semestre2`, `semestre3`, `semestre4`) VALUES
+(1, 1, 8, 3, 85, 80, 95, 75);
 
 -- --------------------------------------------------------
 
@@ -142,6 +164,13 @@ CREATE TABLE `mensualidades` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
+-- Volcado de datos para la tabla `mensualidades`
+--
+
+INSERT INTO `mensualidades` (`id_mensualidad`, `id_alumno`, `fecha_pago`, `monto`) VALUES
+(1, 1, '2023-04-19', 720);
+
+--
 -- Índices para tablas volcadas
 --
 
@@ -165,7 +194,8 @@ ALTER TABLE `asignaturas`
 ALTER TABLE `calificaciones`
   ADD PRIMARY KEY (`id_calificacion`),
   ADD KEY `id_alumno` (`id_alumno`),
-  ADD KEY `id_asignatura` (`id_asignatura`);
+  ADD KEY `id_asignatura` (`id_asignatura`),
+  ADD KEY `id_grado` (`id_grado`);
 
 --
 -- Indices de la tabla `grados`
@@ -194,19 +224,19 @@ ALTER TABLE `mensualidades`
 -- AUTO_INCREMENT de la tabla `alumnos`
 --
 ALTER TABLE `alumnos`
-  MODIFY `id_alumno` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_alumno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `asignaturas`
 --
 ALTER TABLE `asignaturas`
-  MODIFY `id_asignatura` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_asignatura` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `calificaciones`
 --
 ALTER TABLE `calificaciones`
-  MODIFY `id_calificacion` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_calificacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `grados`
@@ -224,7 +254,7 @@ ALTER TABLE `login`
 -- AUTO_INCREMENT de la tabla `mensualidades`
 --
 ALTER TABLE `mensualidades`
-  MODIFY `id_mensualidad` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_mensualidad` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Restricciones para tablas volcadas
@@ -247,7 +277,8 @@ ALTER TABLE `asignaturas`
 --
 ALTER TABLE `calificaciones`
   ADD CONSTRAINT `calificaciones_ibfk_1` FOREIGN KEY (`id_alumno`) REFERENCES `alumnos` (`id_alumno`),
-  ADD CONSTRAINT `calificaciones_ibfk_2` FOREIGN KEY (`id_asignatura`) REFERENCES `asignaturas` (`id_asignatura`);
+  ADD CONSTRAINT `calificaciones_ibfk_2` FOREIGN KEY (`id_asignatura`) REFERENCES `asignaturas` (`id_asignatura`),
+  ADD CONSTRAINT `calificaciones_ibfk_3` FOREIGN KEY (`id_grado`) REFERENCES `grados` (`id_grado`);
 
 --
 -- Filtros para la tabla `mensualidades`
