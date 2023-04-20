@@ -32,9 +32,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $fila = $resultado->fetch_assoc();
       $_SESSION['username'] = $fila['username'];
       $_SESSION['role'] = $fila['role'];
-      header("location: bienvenido.php");
+      
+      if ($_SESSION['role'] == 'administrador') {
+        header("location: view\admin\admin.php");
+      } elseif ($_SESSION['role'] == 'secretaria') {
+        header("location: view\secretaria\secret.php");
+      }
     } else {
-        header("location: login_error.php");
+      header("location: login_error.php");
     }
   }
 }

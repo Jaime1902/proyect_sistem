@@ -7,7 +7,7 @@
     <title>Document</title>
 </head>
 <body>
-    <H1>Hola    </H1>
+    <h1>Secretaria</h1>
     
 </body>
 </html>
