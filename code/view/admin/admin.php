@@ -3,7 +3,7 @@ session_start();
 
 // Verificar si el usuario ha iniciado sesión y tiene un rol válido
 if (!isset($_SESSION['username']) || ($_SESSION['role'] != 'administrador' && $_SESSION['role'] != 'secretaria')) {
-  header("location: ..\index.php");
+  header("location: ../../index.php");
   exit;
 }
 ?>
@@ -146,7 +146,7 @@ if (!isset($_SESSION['username']) || ($_SESSION['role'] != 'administrador' && $_
     <a href="#">Profesores</a>
     <a href="#">Cursos</a>
     <a href="#">Calificaciones</a>
-    <a href=" ../../index.php">Cerrar sesión</a>
+    <a href="close.php">Cerrar sesión</a>
   </div>
   <div id="content">
     <div class="module module-user">
