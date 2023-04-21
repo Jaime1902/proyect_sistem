@@ -137,7 +137,7 @@ if (!isset($_SESSION['username']) || ($_SESSION['role'] != 'administrador' && $_
     .module img {
       max-width: 50%;
       max-height: 50%;
-      margin: 5px;
+      margin: 10px;
       border-radius: 100%;
       background-color: #fff;
       padding: 3px;
@@ -179,7 +179,7 @@ if (!isset($_SESSION['username']) || ($_SESSION['role'] != 'administrador' && $_
   <div id="content">
     <div class="module module-student">
       <a href="#">
-        <img src="student.png" alt="Estudiantes">
+        <img src="../../img/logo/graduado.png" alt="Estudiantes">
         <h2>Estudiantes</h2>
       </a>
     </div>
@@ -191,13 +191,13 @@ if (!isset($_SESSION['username']) || ($_SESSION['role'] != 'administrador' && $_
     </div>
     <div class="module module-class">
       <a href="#">
-        <img src="class.png" alt="Cursos">
+        <img src="../../img/logo/cuadernos.png" alt="Cursos">
         <h2>Cursos</h2>
       </a>
     </div>
     <div class="module module-grade">
       <a href="#">
-        <img src="grade.png" alt="Calificaciones">
+        <img src="../../img/logo/grafico-de-barras.png" alt="Calificaciones">
         <h2>Calificaciones</h2>
       </a>
     </div>
