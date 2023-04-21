@@ -70,51 +70,79 @@ if (!isset($_SESSION['username']) || ($_SESSION['role'] != 'administrador' && $_
       border-radius: 5px;
     }
 
-    .module {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: calc(33.33% - 20px);
-      height: 150px;
-      margin: 10px;
-      background-color: #fff;
-      border-radius: 5px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-      text-align: center;
-    }
+/* Estilos para los módulos */
+.module {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: calc(33.33% - 20px);
+  height: 180px;
+  margin: 10px;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.5), 0 1px 3px rgba(0,0,0,0.08);
+  text-align: center;
+  transition: transform 0.3s ease;
+}
 
-    .module a {
-      display: block;
-      width: 100%;
-      height: 100%;
-      padding: 20px;
-      color: #fff;
-      text-decoration: none;
-    }
 
-    .module-user {
-      background-color: #4caf50;
-    }
+/* Enlaces en los módulos */
+.module a {
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+  color: #fff;
+  text-decoration: none;
+}
 
-    .module-student {
-      background-color: #d32f2f;
-    }
+/* Estilos de los diferentes tipos de módulos */
+.module-pricing {
+  background-color: #4caf50;
+}
 
-    .module-teacher {
-      background-color: #ff9800;
-    }
+.module-student {
+  background-color: #d32f2f;
+}
 
-    .module-class {
-      background-color: #e53935;
-    }
+.module-teacher {
+  background-color: #ff9800;
+}
 
-    .module-grade {
-      background-color: #8bc34a;
-    }
+.module-class {
+  background-color: #e53935;
+}
+
+.module-grade {
+  background-color: #8bc34a;
+}
+
+/* Hover en los módulos */
+.module:hover {
+  transform: translateY(-10px);
+}
+
+/* Hover en los enlaces */
+.module a:hover {
+  opacity: 0.9;
+}
+
+/* Estilo para módulos seleccionados */
+.module.active {
+  transform: scale(1.05);
+  border: 2px solid #007bff;
+}
+
 
     .module img {
-      max-width: 100%;
-      max-height: 100%;
+      max-width: 50%;
+      max-height: 50%;
+      margin: 5px;
+      border-radius: 100%;
+      background-color: #fff;
+      padding: 3px;
+      box-sizing: border-box;
+      font-size: 3rem;
     }
 
     @media screen and (max-width: 768px) {
@@ -141,20 +169,14 @@ if (!isset($_SESSION['username']) || ($_SESSION['role'] != 'administrador' && $_
   </div>
   <div id="menu">
     <a href="#">Inicio</a>
-    <a href="#">Usuarios</a>
     <a href="#">Estudiantes</a>
+    <a href="#">Mensualidad</a>
     <a href="#">Profesores</a>
     <a href="#">Cursos</a>
     <a href="#">Calificaciones</a>
     <a href="close.php">Cerrar sesión</a>
   </div>
   <div id="content">
-    <div class="module module-user">
-      <a href="#">
-        <img src="user.png" alt="Usuarios">
-        <h2>Usuarios</h2>
-      </a>
-    </div>
     <div class="module module-student">
       <a href="#">
         <img src="student.png" alt="Estudiantes">
@@ -163,7 +185,7 @@ if (!isset($_SESSION['username']) || ($_SESSION['role'] != 'administrador' && $_
     </div>
     <div class="module module-teacher">
       <a href="#">
-        <img src="../../img/logo/teacher.png" alt="Profesores">
+        <img src="../../img/logo/instructor.png" alt="Profesores">
         <h2>Profesores</h2>
       </a>
     </div>
@@ -177,6 +199,12 @@ if (!isset($_SESSION['username']) || ($_SESSION['role'] != 'administrador' && $_
       <a href="#">
         <img src="grade.png" alt="Calificaciones">
         <h2>Calificaciones</h2>
+      </a>
+    </div>
+    <div class="module module-pricing">
+      <a href="#">
+        <img src="../../img/logo/metodo-de-pago.png" alt="mensualidad">
+        <h2>Mensualidad</h2>
       </a>
     </div>
   </div>
