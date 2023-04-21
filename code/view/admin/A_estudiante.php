@@ -13,7 +13,7 @@
   </div>
   <div id="menu">
     <a href="admin.php">Inicio</a>
-    <a href="#">Estudiantes</a>
+    <a href="A_estudiante.php">Estudiantes</a>
     <a href="#">Mensualidad</a>
     <a href="#">Profesores</a>
     <a href="#">Cursos</a>
@@ -24,7 +24,7 @@
     <div class="module module-student">
       <a href="A_estudiante.php">
         <img src="../../img/logo/graduado.png" alt="Estudiantes">
-        <h2>Estudiantes</h2>
+        <h2>Añadir Estudiantes</h2>
       </a>
     </div>
     <div class="module module-teacher">
