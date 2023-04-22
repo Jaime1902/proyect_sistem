@@ -14,12 +14,12 @@
         </div>
         <form action="login.php" method="post">
           <div class="form-group">
-            <label for="username">Usuario:</label>
-            <input type="text" id="username" name="username" placeholder="Ingrese su nombre de usuario">
+            <input type="text" id="username" name="username" required>
+            <label for="username">Username</label>
           </div>
           <div class="form-group">
-            <label for="password">Contraseña:</label>
-            <input type="password" id="password" name="password" placeholder="Ingrese su contraseña">
+            <input type="password" id="password" name="password" required>
+            <label for="password">Contraseña</label>
           </div>
           <div class="form-group">
             <button type="submit">Ingresar</button>
