@@ -1,32 +1,31 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
   <head>
-    <meta charset="UTF-8">
-    <title>Inicio de sesión</title>
-    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login Form</title>
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <div class="login-container">
-      <div class="login-form">
-        <div class="login-header">
-          <img src="img\logo\logo.png" alt="Logo del colegio">
-          <h2>Iniciar sesión</h2>
+    <div class="container">
+	<div class="login-header">
+        <img src="img\logo\logo.png" alt="Logo del colegio">
+        <h1>Iniciar sesión</h1>
+     </div>
+      <form action="login.php" method="post">
+        <div class="input-field">
+          <input type="text" id="username" name="username" placeholder=" " />
+          <label for="username">Usuario:</label>
         </div>
-        <form action="login.php" method="post">
-          <div class="form-group">
-            <input type="text" id="username" name="username" required>
-            <label for="username">Usuario:</label>
-          </div>
-          <br>
-          <div class="form-group">
-            <input type="password" id="password" name="password" required>
-            <label for="password">Contraseña:</label>
-          </div>
-          <div class="form-group">
-            <button type="submit">Ingresar</button>
-          </div>
-        </form>
-      </div>
+		<br>
+        <div class="input-field">
+          <input type="password" id="password" name="password" placeholder=" "  class="form-control"/>
+          <label for="password">Contraseña:</label>
+		  <span id="show-password" class="show-password"></span>
+        </div>
+        <button type="submit">Ingresar</button>
+      </form>
     </div>
   </body>
+  <script src="script.js"></script>
 </html>
