@@ -15,11 +15,12 @@
         <form action="login.php" method="post">
           <div class="form-group">
             <input type="text" id="username" name="username" required>
-            <label for="username">Username</label>
+            <label for="username">Usuario:</label>
           </div>
+          <br>
           <div class="form-group">
             <input type="password" id="password" name="password" required>
-            <label for="password">Contraseña</label>
+            <label for="password">Contraseña:</label>
           </div>
           <div class="form-group">
             <button type="submit">Ingresar</button>

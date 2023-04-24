@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 20-04-2023 a las 07:12:01
+-- Tiempo de generación: 24-04-2023 a las 04:49:04
 -- Versión del servidor: 10.4.27-MariaDB
 -- Versión de PHP: 8.2.0
 
@@ -138,7 +138,7 @@ INSERT INTO `grados` (`id_grado`, `nombre_grado`) VALUES
 CREATE TABLE `login` (
   `id` int(11) NOT NULL,
   `username` varchar(50) NOT NULL,
-  `password` varbinary(255) NOT NULL,
+  `password_hash` varchar(64) NOT NULL,
   `role` enum('administrador','secretaria') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -146,9 +146,9 @@ CREATE TABLE `login` (
 -- Volcado de datos para la tabla `login`
 --
 
-INSERT INTO `login` (`id`, `username`, `password`, `role`) VALUES
-(1, 'admin', 0x6d820a4ff9523eadb1f36b61a9ca0a77, 'administrador'),
-(2, 'secretaria', 0x9479d5c6b840b19a42c38ab6190a293c, 'secretaria');
+INSERT INTO `login` (`id`, `username`, `password_hash`, `role`) VALUES
+(1, 'admin', '240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9', 'administrador'),
+(2, 'secretaria', '1c392f167af58d8184653ba5f241d00f8e847e3e83211a04be121339ee2744e9', 'secretaria');
 
 -- --------------------------------------------------------
 
