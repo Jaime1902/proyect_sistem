@@ -16,7 +16,8 @@ version #0.0.3 alpha
 mejoras el login seguridad y mejor interfaz al momento de introduzir una contraseña erronia 
 
 
-parche de seguridad agregado V0.1
+--------------------------------parche de seguridad agregado V0.1------------------------------------------------------------------------
+
 contine mejor cifrado de informacion ala base de datos ala tabla login 
 contine un destrucion mediante cooki
 
