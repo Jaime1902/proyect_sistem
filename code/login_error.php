@@ -12,7 +12,7 @@ include 'conexion.php';
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <div class="container">
+    <div class="container2">
       <div class="login-header">
         <img src="img\logo\logo.png" alt="Logo del colegio">
         <h1>Iniciar sesión</h1>

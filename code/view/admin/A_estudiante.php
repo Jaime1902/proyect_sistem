@@ -1,3 +1,14 @@
+<?php
+session_start();
+
+// Verificar si el usuario ha iniciado sesión y tiene un rol válido
+if (!isset($_SESSION['username']) || ($_SESSION['role'] != 'administrador')) {
+  header("location: ../../index.php");
+  exit;
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,7 +23,7 @@
     <h1>Colegio Cristiano Presbiteriano</h1>
   </div>
   <div id="menu">
-    <a href="admin.php">Inicio</a>
+    <a href="index.php">Inicio</a>
     <a href="A_estudiante.php">Estudiantes</a>
     <a href="#">Mensualidad</a>
     <a href="#">Profesores</a>
