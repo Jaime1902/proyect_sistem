@@ -16,6 +16,13 @@ include 'conexion.php';
       <div class="login-header">
         <img src="img\logo\logo.png" alt="Logo del colegio">
         <h1>Iniciar sesión</h1>
+        <?php if(isset($_SESSION['login_error'])) { ?>
+  <div class="login-error">
+    <p><?php echo $_SESSION['login_error']; ?></p>
+  </div>
+  <?php unset($_SESSION['login_error']); } ?>
+  <br><br>
+
      </div>
       <form action="login.php" method="post">
         <div class="input-field">
@@ -30,12 +37,5 @@ include 'conexion.php';
         </div>
         <button type="submit">Ingresar</button>
   </body>
-  <br><br>
-  <?php if(isset($_SESSION['login_error'])) { ?>
-        <div class="login-error">
-          <p><?php echo $_SESSION['login_error']; ?></p>
-        </div>
-      <?php unset($_SESSION['login_error']); } ?>
-
   <script src="script.js"></script>
 </html>

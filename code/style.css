@@ -140,6 +140,14 @@ input:not(:placeholder-shown) + label {
     font-weight: bold;
     margin-bottom: 10px;
   }
+  .login-error {
+	background-color: #fcada9;
+	color: rgb(255, 0, 0);
+	padding: 10px;
+	border-radius: 10px;
+	text-align: center;
+	width: 100%;
+  }
   
   
 
