@@ -37,7 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $_SESSION['role'] = $fila['role'];
       
       if ($_SESSION['role'] == 'administrador') {
-        header("location: view\admin\admin.php");
+        header("location: view\admin\index.php");
       } elseif ($_SESSION['role'] == 'secretaria') {
         header("location: view\secretaria\secret.php");
       }
