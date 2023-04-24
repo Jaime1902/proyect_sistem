@@ -32,6 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $resultado = $stmt->get_result();
 
     if ($resultado->num_rows == 1) {
+      $_SESSION['last_activity'] = time();
       $fila = $resultado->fetch_assoc();
       $_SESSION['username'] = $fila['username'];
       $_SESSION['role'] = $fila['role'];
