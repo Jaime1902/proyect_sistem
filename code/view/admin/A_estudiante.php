@@ -44,15 +44,15 @@ $_SESSION['last_activity'] = time();
   </div>
   <div id="content">
     <div class="module module-student">
-      <a href="A_estudiante.php">
+      <a href="give_alumno.php">
         <img src="../../img/logo/graduado.png" alt="Estudiantes">
-        <h2>Añadir Estudiantes</h2>
+        <h2>Añadir Alumno</h2>
       </a>
     </div>
     <div class="module module-teacher">
-      <a href="#">
+      <a href="view_a.php">
         <img src="../../img/logo/instructor.png" alt="Profesores">
-        <h2>Profesores</h2>
+        <h2>Visualizar Alumno</h2>
       </a>
     </div>
   </div>
