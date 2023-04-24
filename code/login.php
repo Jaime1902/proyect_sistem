@@ -9,14 +9,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   // Verificar que el nombre de usuario tenga una longitud válida
   if (strlen($username) < 3 || strlen($username) > 50) {
+    $_SESSION['login_error'] = "El nombre de usuario debe tener entre 3 y 50 caracteres";
     header("location: login_error.php");
   }
   // Verificar que la contraseña tenga una longitud válida
   elseif (strlen($password) < 8 || strlen($password) > 20) {
+    $_SESSION['login_error'] = "Contraseña inválida.";
     header("location: login_error.php");
   }
   // Verificar que el nombre de usuario y la contraseña contengan solo caracteres seguros
   elseif (!preg_match("/^[a-zA-Z0-9_-]+$/", $username) || !preg_match("/^[a-zA-Z0-9_-]+$/", $password)) {
+    $_SESSION['login_error'] = "Nombre de usuario o contraseña inválidos.";
     header("location: login_error.php");
   } else {
     // Convertir la contraseña en un hash
@@ -39,6 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         header("location: view\secretaria\secret.php");
       }
     } else {
+      $_SESSION['login_error'] = "Nombre de usuario o contraseña incorrectos.";
       header("location: login_error.php");
     }
   }

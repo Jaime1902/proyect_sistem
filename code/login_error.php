@@ -1,35 +1,41 @@
+
+<?php
+session_start();
+include 'conexion.php';
+?>
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
   <head>
-    <meta charset="UTF-8">
-    <title>Inicio de sesión</title>
-    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <div class="login-container">
-      <div class="login-form">
-        <div class="login-header">
-          <img src="img\logo\logo.png" alt="Logo del colegio">
-          <h2>Iniciar sesión</h2>
+    <div class="container">
+      <div class="login-header">
+        <img src="img\logo\logo.png" alt="Logo del colegio">
+        <h1>Iniciar sesión</h1>
+     </div>
+      <form action="login.php" method="post">
+        <div class="input-field">
+          <input type="text" id="username" name="username" placeholder=" " />
+          <label for="username">Usuario:</label>
         </div>
-        <form action="login.php" method="post">
-          <div class="form-group">
-            <label for="username">Usuario:</label>
-            <input type="text" id="username" name="username" placeholder="Ingrese su nombre de usuario">
-          </div>
-          <div class="form-group">
-            <label for="password">Contraseña:</label>
-            <input type="password" id="password" name="password" placeholder="Ingrese su contraseña">
-          </div>
-          <div class="form-group">
-            <button type="submit">Ingresar</button>
-          </div>
-          <div class="error-message">
-          <label>Error al Iniciar sesion</label>
+        <br>
+        <div class="input-field">
+          <input type="password" id="password" name="password" placeholder=" "  class="form-control"/>
+          <label for="password">Contraseña:</label>
+          <span id="show-password" class="show-password"></span>
         </div>
-        </form>
-      </div>
-    </div>
+        <button type="submit">Ingresar</button>
   </body>
+  <br><br>
+  <?php if(isset($_SESSION['login_error'])) { ?>
+        <div class="login-error">
+          <p><?php echo $_SESSION['login_error']; ?></p>
+        </div>
+      <?php unset($_SESSION['login_error']); } ?>
+
+  <script src="script.js"></script>
 </html>
-               

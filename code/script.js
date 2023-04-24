@@ -10,3 +10,4 @@ showPasswordButton.addEventListener('click', function() {
     showPasswordButton.classList.remove('visible');
   }
 });
+
