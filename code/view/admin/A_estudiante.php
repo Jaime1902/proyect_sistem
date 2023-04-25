@@ -7,7 +7,7 @@ if (!isset($_SESSION['username']) || ($_SESSION['role'] != 'administrador')) {
   exit;
 }
 // Verificar si ha pasado más de 5 minutos desde la última acción del usuario
-if (isset($_SESSION['last_activity']) && (time() - $_SESSION['last_activity'] > 120)) {
+if (isset($_SESSION['last_activity']) && (time() - $_SESSION['last_activity'] > 360)) {
   // Destruir la sesión
   session_unset();
   session_destroy();
