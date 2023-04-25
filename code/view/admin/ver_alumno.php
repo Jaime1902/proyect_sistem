@@ -19,6 +19,10 @@ if(isset($_GET['id'])){
     $nombre_madre = $fila['nombre_madre'];
     $cedula_padre = $fila['cedula_padre'];
     $cedula_madre = $fila['cedula_madre'];
+    $telefono_emergencia = $fila['telefono_emergencia'];
+    $ocupacion_padre = $fila['ocupacion_padre'];
+    $ocupacion_madre = $fila['ocupacion_madre'];
+    $direccion_exacta = $fila['direccion_exacta'];
   }
 }
 
@@ -91,5 +95,22 @@ if(isset($_GET['id'])){
               <th>Cédula de la madre</th>
               <td><?php echo $cedula_madre; ?></td>
             </tr>
+            <tr>
+              <th>Telefono de emergencia</th>
+              <td><?php echo $telefono_emergencia; ?></td>
+            </tr>
+            <tr>
+              <th>Ocupacion del padre</th>
+              <td><?php echo $ocupacion_padre; ?></td>
+            </tr>
+            <tr>
+              <th>ocupacion de la madre</th>
+              <td><?php echo $ocupacion_madre; ?></td>
+            </tr>
+            <tr>
+              <th>Direccion exacta</th>
+              <td><?php echo $direccion_exacta; ?></td>
+            </tr>
+            
 
              
