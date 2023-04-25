@@ -63,7 +63,7 @@ if(isset($_POST['actualizar'])){
       <div class="col-md-4 mx-auto">
         <div class="card card-body">
           <br><br>
-          <form action="editar_alumno.php?id=<?php echo $_GET['id']; ?>" method="POST">
+          <form action="editar_alumno.php?id=<?php echo $_GET['id']; ?>"  class ="panel-form" method="POST">
           <h1>Editar alumno</h1>
             <div class="form-group">
             <label for="nombre">Nombre:</label><br>

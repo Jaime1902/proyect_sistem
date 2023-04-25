@@ -13,7 +13,7 @@
 <body>
 
   <br><br>
-  <form action="agregar_alumno.php" method="post">
+  <form action="agregar_alumno.php" class ="panel-form" method="post">
   <h1>Agregar nuevo alumno</h1>
 	<label for="nombre">Nombre:</label>
 	<input type="text" name="nombre" required><br><br> 
