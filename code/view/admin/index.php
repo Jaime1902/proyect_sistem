@@ -29,18 +29,9 @@ $_SESSION['last_activity'] = time();
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div id="header">
-    <h1>Colegio Cristiano Presbiteriano</h1>
-  </div>
-  <div id="menu">
-    <a href="index.php">Inicio</a>
-    <a href="A_estudiante.php">Estudiantes</a>
-    <a href="#">Mensualidad</a>
-    <a href="#">Profesores</a>
-    <a href="#">Cursos</a>
-    <a href="#">Calificaciones</a>
-    <a href="close.php">Cerrar sesión</a>
-  </div>
+  <?php 
+  include("header.php"); 
+  ?>
   <div id="content">
     <div class="module module-student">
       <a href="A_estudiante.php">
