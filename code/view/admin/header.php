@@ -1,3 +1,27 @@
+<?php
+session_start();
+
+// Verificar si el usuario ha iniciado sesión y tiene un rol válido
+if (!isset($_SESSION['username']) || ($_SESSION['role'] != 'administrador')) {
+  header("location: ../../index.php");
+  exit;
+}
+
+// Verificar si ha pasado más de 5 minutos desde la última acción del usuario
+if (isset($_SESSION['last_activity']) && (time() - $_SESSION['last_activity'] > 360)) {
+  // Destruir la sesión
+  session_unset();
+  session_destroy();
+  header("location: ../../index.php");
+  exit;
+}
+
+// Actualizar el tiempo de última actividad de la sesión
+$_SESSION['last_activity'] = time();
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

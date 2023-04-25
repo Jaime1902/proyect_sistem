@@ -1,6 +1,9 @@
 <?php
 include '../../conexion.php';
 
+include("header.php"); 
+
+
 // Consulta a la base de datos para obtener los datos de los alumnos
 $sql = "SELECT a.id_alumno, a.nombre, a.apellidos, a.fecha_nacimiento, g.nombre_grado 
         FROM alumnos a 

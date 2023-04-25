@@ -1,6 +1,10 @@
 <?php
 include '../../conexion.php'; // Archivo con la conexión a la base de datos
 
+include("header.php"); //incluya la medida de seguridad
+
+
+
 // Recibimos los datos del formulario y los almacenamos en variables
 $nombre = $_POST['nombre'];
 $apellidos = $_POST['apellidos'];
