@@ -27,114 +27,117 @@ if (isset($_POST['buscar'])) {
 
 <!DOCTYPE html>
 <html>
+
 <head>
-	<title>Lista de alumnos</title>
+    <title>Lista de alumnos</title>
 </head>
 <style>
-		body {
-			font-family: Arial, sans-serif;
-			margin: 0;
-			padding: 0;
-		}
-		
-		.search-form {
-			position: absolute;
-			top: 50px;
-			right: 20px;
-		}
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
 
-		header {
-			background-color: #333;
-			color: #fff;
-			padding: 10px;
-			text-align: center;
-		}
+.search-form {
+    position: absolute;
+    top: 50px;
+    right: 20px;
+}
 
-		h1 {
-			margin-top: 0;
-		}
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+}
 
-		form {
-			display: flex;
-			align-items: center;
-			justify-content: flex-end;
-			margin: 20px;
-		}
+h1 {
+    margin-top: 0;
+}
 
-		input[type="text"] {
-			padding: 10px;
-			font-size: 16px;
-			border-radius: 5px 0 0 5px;
-			border: none;
-			box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-		}
+form {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin: 20px;
+}
 
-		button[type="submit"] {
-			padding: 10px;
-			font-size: 16px;
-			background-color: #333;
-			color: #fff;
-			border-radius: 0 5px 5px 0;
-			border: none;
-			box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-			cursor: pointer;
-		}
+input[type="text"] {
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px 0 0 5px;
+    border: none;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
 
-		table {
-			border-collapse: collapse;
-			width: 100%;
-			margin: 20px;
-		}
+button[type="submit"] {
+    padding: 10px;
+    font-size: 16px;
+    background-color: #333;
+    color: #fff;
+    border-radius: 0 5px 5px 0;
+    border: none;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+}
 
-		th, td {
-			padding: 10px;
-			border: 1px solid #ddd;
-			text-align: left;
-		}
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 20px;
+}
 
-		th {
-			background-color: #333;
-			color: #fff;
-		}
+th,
+td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
 
-		td a {
-			color: #333;
-			text-decoration: none;
-			background-color: #ddd;
-			padding: 5px 10px;
-			border-radius: 5px;
-		}
+th {
+    background-color: #333;
+    color: #fff;
+}
 
-		td a:hover {
-			background-color: #333;
-			color: #fff;
-		}
+td a {
+    color: #333;
+    text-decoration: none;
+    background-color: #ddd;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
 
-	</style>
+td a:hover {
+    background-color: #333;
+    color: #fff;
+}
+</style>
+
 <body>
-	<h1>Lista de alumnos</h1>
-	<form method="post" class="search-form">
-		<input type="text" name="buscar" placeholder="Buscar por ID, nombre, fecha de nacimiento o apellido">
-		<button type="submit">Buscar</button>
-	</form>
-	<table>
-		<tr>
-			<th>Nombre completo</th>
-			<th>Fecha de nacimiento</th>
-			<th>Grado</th>
-			<th>Acciones</th>
-		</tr>
-		<?php while ($fila = $resultado->fetch_assoc()) { ?>
-			<tr>
-				<td><?php echo $fila['nombre'] . ' ' . $fila['apellidos']; ?></td>
-				<td><?php echo $fila['fecha_nacimiento']; ?></td>
-				<td><?php echo $fila['nombre_grado']; ?></td>
-				<td>
-					<a href="editar_alumno.php?id=<?php echo $fila['id_alumno']; ?>">Editar</a> | 
-					<a href="ver_alumno.php?id=<?php echo $fila['id_alumno']; ?>">Ver</a>
-				</td>
-			</tr>
-		<?php } ?>
-	</table>
+    <h1>Lista de alumnos</h1>
+    <form method="post" class="search-form">
+        <input type="text" name="buscar" placeholder="Buscar por ID, nombre, fecha de nacimiento o apellido">
+        <button type="submit">Buscar</button>
+    </form>
+    <table>
+        <tr>
+            <th>Nombre completo</th>
+            <th>Fecha de nacimiento</th>
+            <th>Grado</th>
+            <th>Acciones</th>
+        </tr>
+        <?php while ($fila = $resultado->fetch_assoc()) { ?>
+        <tr>
+            <td><?php echo $fila['nombre'] . ' ' . $fila['apellidos']; ?></td>
+            <td><?php echo $fila['fecha_nacimiento']; ?></td>
+            <td><?php echo $fila['nombre_grado']; ?></td>
+            <td>
+                <a href="editar_alumno.php?id=<?php echo $fila['id_alumno']; ?>">Editar</a> |
+                <a href="ver_alumno.php?id=<?php echo $fila['id_alumno']; ?>">Ver</a>
+            </td>
+        </tr>
+        <?php } ?>
+    </table>
 </body>
+
 </html>

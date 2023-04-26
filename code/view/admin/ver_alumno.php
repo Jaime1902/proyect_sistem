@@ -29,88 +29,171 @@ if(isset($_GET['id'])){
 ?>
 
 <?php include("header.php"); ?>
-<main class="container p-4">
-  <div class="row">
-    <div class="col-md-12">
-      <div class="card card-body">
-        <h3>Detalles del alumno</h3>
-        <table class="table table-bordered">
-          <tbody>
-            <tr>
-              <th>ID</th>
-              <td><?php echo $id; ?></td>
-            </tr>
-            <tr>
-              <th>Nombre</th>
-              <td><?php echo $nombre; ?></td>
-            </tr>
-            <tr>
-              <th>Apellidos</th>
-              <td><?php echo $apellidos; ?></td>
-            </tr>
-            <tr>
-              <th>Lugar de nacimiento</th>
-              <td><?php echo $lugar_nacimiento; ?></td>
-            </tr>
-            <tr>
-              <th>Fecha de nacimiento</th>
-              <td><?php echo $fecha_nacimiento; ?></td>
-            </tr>
-            <tr>
-              <th>Código de estudiante</th>
-              <td><?php echo $codigo_estudiante; ?></td>
-            </tr>
-            <tr>
-              <th>Grado</th>
-              <td>
-                <?php
-                $query_grado = "SELECT nombre_grado FROM grados WHERE id_grado = $id_grado";
-                $result_grado = mysqli_query($conexion, $query_grado);
-                $fila_grado = mysqli_fetch_array($result_grado);
-                echo $fila_grado['nombre_grado'];
-                ?>
-              </td>
-            </tr>
-            <tr>
-              <th>Fecha de inscripción</th>
-              <td><?php echo $fecha_inscripcion; ?></td>
-            </tr>
-            <tr>
-              <th>Padecimientos o alergias</th>
-              <td><?php echo $padecimiento_alergia; ?></td>
-            </tr>
-            <tr>
-              <th>Nombre del padre</th>
-              <td><?php echo $nombre_padre; ?></td>
-            </tr>
-            <tr>
-              <th>Nombre de la madre</th>
-              <td><?php echo $nombre_madre; ?></td>
-            </tr>
-            <tr>
-              <th>Cédula del padre</th>
-              <td><?php echo $cedula_padre; ?></td>
-            </tr>
-            <tr>
-              <th>Cédula de la madre</th>
-              <td><?php echo $cedula_madre; ?></td>
-            </tr>
-            <tr>
-              <th>Telefono de emergencia</th>
-              <td><?php echo $telefono_emergencia; ?></td>
-            </tr>
-            <tr>
-              <th>Ocupacion del padre</th>
-              <td><?php echo $ocupacion_padre; ?></td>
-            </tr>
-            <tr>
-              <th>ocupacion de la madre</th>
-              <td><?php echo $ocupacion_madre; ?></td>
-            </tr>
-            <tr>
-              <th>Direccion exacta</th>
-              <td><?php echo $direccion_exacta; ?></td>
-            </tr>
-            
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<style>
+  /* Estilos para el contenedor principal */
+.container {
+  margin-top: 50px;
+}
 
-             
+/* Estilos para centrar el contenido horizontalmente */
+.row {
+  display: flex;
+  justify-content: center;
+}
+
+/* Estilos para la tarjeta */
+.card {
+  width: 100%;
+  max-width: 800px;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilos para el título */
+.card-body h1 {
+  font-size: 32px;
+  font-weight: bold;
+  color: #333;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+/* Estilos para la tabla */
+.table {
+  width: 100%;
+  font-size: 16px;
+  border-collapse: collapse;
+  margin-top: 30px;
+}
+
+/* Estilos para los encabezados de la tabla */
+.table th {
+  background-color: #f8f8f8;
+  color: #333;
+  font-weight: bold;
+  padding: 10px;
+  text-align: left;
+  border-bottom: 2px solid #ddd;
+}
+
+/* Estilos para las celdas de la tabla */
+.table td {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+/* Estilos para las filas impares de la tabla */
+.table tbody tr:nth-child(odd) {
+  background-color: #f8f8f8;
+}
+
+
+
+</style>
+<body>
+ 
+<main class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-body">
+ 
+          <h1 class="text-center mb-4">Detalles del alumno</h1>
+          <div class="table-responsive">
+            <table class="table table-hover">
+
+              <tbody>
+                <tr>
+                  <th>ID</th>
+                  <td><?php echo $id; ?></td>
+                </tr>
+                <tr>
+                  <th>Nombre</th>
+                  <td><?php echo $nombre; ?></td>
+                </tr>
+                <tr>
+                  <th>Apellidos</th>
+                  <td><?php echo $apellidos; ?></td>
+                </tr>
+                <tr>
+                  <th>Lugar de nacimiento</th>
+                  <td><?php echo $lugar_nacimiento; ?></td>
+                </tr>
+                <tr>
+                  <th>Fecha de nacimiento</th>
+                  <td><?php echo $fecha_nacimiento; ?></td>
+                </tr>
+                <tr>
+                  <th>Código de estudiante</th>
+                  <td><?php echo $codigo_estudiante; ?></td>
+                </tr>
+                <tr>
+                  <th>Grado</th>
+                  <td>
+                    <?php
+                    $query_grado = "SELECT nombre_grado FROM grados WHERE id_grado = $id_grado";
+                    $result_grado = mysqli_query($conexion, $query_grado);
+                    $fila_grado = mysqli_fetch_array($result_grado);
+                    echo $fila_grado['nombre_grado'];
+                    ?>
+                  </td>
+                </tr>
+                <tr>
+                  <th>Fecha de inscripción</th>
+                  <td><?php echo $fecha_inscripcion; ?></td>
+                </tr>
+                <tr>
+                  <th>Padecimientos o alergias</th>
+                  <td><?php echo $padecimiento_alergia; ?></td>
+                </tr>
+                <tr>
+                  <th>Nombre del padre</th>
+                  <td><?php echo $nombre_padre; ?></td>
+                </tr>
+                <tr>
+                  <th>Nombre de la madre</th>
+                  <td><?php echo $nombre_madre; ?></td>
+                </tr>
+                <tr>
+                  <th>Cédula del padre</th>
+                  <td><?php echo $cedula_padre; ?></td>
+                </tr>
+                <tr>
+                  <th>Cédula de la madre</th>
+                  <td><?php echo $cedula_madre; ?></td>
+                </tr>
+                <tr>
+                  <th>Teléfono de emergencia</th>
+                  <td><?php echo $telefono_emergencia; ?></td>
+                </tr>
+                <tr>
+                  <th>Ocupación del padre</th>
+                  <td><?php echo $ocupacion_padre; ?></td>
+                </tr>
+                <tr>
+                  <th>Ocupación de la madre</th>
+                  <td><?php echo $ocupacion_madre; ?></td>
+                </tr>
+                <tr>
+                  <th>Dirección exacta</th>
+                  <td><?php echo $direccion_exacta; ?></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+</body>
+</html>
