@@ -30,7 +30,7 @@
       </a>
     </div>
     <div class="module module-grade">
-      <a href="#">
+      <a href="calificaciones.php">
         <img src="../../img/logo/grafico-de-barras.png" alt="Calificaciones">
         <h2>Calificaciones</h2>
       </a>

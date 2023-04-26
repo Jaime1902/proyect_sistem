@@ -42,7 +42,7 @@ $_SESSION['last_activity'] = time();
     <a href="#">Mensualidad</a>
     <a href="#">Profesores</a>
     <a href="#">Cursos</a>
-    <a href="#">Calificaciones</a>
+    <a href="calificaciones.php">Calificaciones</a>
     <a href="close.php">Cerrar sesión</a>
   </div>
     
