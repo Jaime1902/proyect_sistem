@@ -40,7 +40,7 @@ if(isset($_GET['id'])){
 <style>
   /* Estilos para el contenedor principal */
 .container {
-  margin-top: 50px;
+  margin-top: 10px;
 }
 
 /* Estilos para centrar el contenido horizontalmente */
@@ -51,11 +51,11 @@ if(isset($_GET['id'])){
 
 /* Estilos para la tarjeta */
 .card {
-  width: 100%;
+  width: 120%;
   max-width: 800px;
   border: none;
-  border-radius: 10px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 50px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
 }
 
 /* Estilos para el título */
@@ -72,7 +72,7 @@ if(isset($_GET['id'])){
   width: 100%;
   font-size: 16px;
   border-collapse: collapse;
-  margin-top: 30px;
+  margin-top: 10px;
 }
 
 /* Estilos para los encabezados de la tabla */
@@ -80,15 +80,15 @@ if(isset($_GET['id'])){
   background-color: #f8f8f8;
   color: #333;
   font-weight: bold;
-  padding: 10px;
+  padding: 20px;
   text-align: left;
-  border-bottom: 2px solid #ddd;
+  border-bottom: 5px solid #ddd;
 }
 
 /* Estilos para las celdas de la tabla */
 .table td {
   padding: 10px;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 5px solid #ddd;
 }
 
 /* Estilos para las filas impares de la tabla */
@@ -188,6 +188,13 @@ if(isset($_GET['id'])){
                   <td><?php echo $direccion_exacta; ?></td>
                 </tr>
               </tbody>
+              <div class="button-container">
+  <a href="exportar_calificaciones.php?id=<?php echo $id; ?>" class="btn btn-red">Exportar calificaciones</a>
+  <a href="exportar_alumno.php?id=<?php echo $id; ?>" class="btn btn-blue">Exportar datos al alumno</a>
+</div>
+
+
+
             </table>
           </div>
         </div>
