@@ -18,7 +18,7 @@
       </a>
     </div>
     <div class="module module-teacher">
-      <a href="#">
+      <a href="prof.php">
         <img src="../../img/logo/instructor.png" alt="Profesores">
         <h2>Profesores</h2>
       </a>
