@@ -1,7 +1,6 @@
-
 <?php
-session_start();
-include 'conexion.php';
+session_start(); // Iniciamos la sesión para poder almacenar información entre páginas
+include 'conexion.php'; // Incluimos el archivo de conexión a la base de datos
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -16,15 +15,15 @@ include 'conexion.php';
       <div class="login-header">
         <img src="img\logo\logo.png" alt="Logo del colegio">
         <h1>Iniciar sesión</h1>
-        <?php if(isset($_SESSION['login_error'])) { ?>
+        <?php if(isset($_SESSION['login_error'])) { ?> <!-- Si hay un error en el inicio de sesión, se muestra el mensaje de error -->
   <div class="login-error">
     <p><?php echo $_SESSION['login_error']; ?></p>
   </div>
-  <?php unset($_SESSION['login_error']); } ?>
+  <?php unset($_SESSION['login_error']); } ?> <!-- Se elimina el mensaje de error de la sesión para que no aparezca de nuevo -->
   <br><br>
 
      </div>
-      <form action="login.php" method="post">
+      <form action="login.php" method="post"> <!-- El formulario envía los datos a la página login.php mediante el método POST -->
         <div class="input-field">
           <input type="text" id="username" name="username" placeholder=" " />
           <label for="username">Usuario:</label>
@@ -37,5 +36,5 @@ include 'conexion.php';
         </div>
         <button type="submit">Ingresar</button>
   </body>
-  <script src="script.js"></script>
+  <script src="script.js"></script> <!-- Se incluye el archivo de JavaScript para la funcionalidad del botón de mostrar contraseña -->
 </html>

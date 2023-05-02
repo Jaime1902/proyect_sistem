@@ -1,14 +1,16 @@
 <?php
+// Datos para la conexión a la base de datos
 $host = "localhost"; // Cambia esto si tu servidor de MySQL está en otro host
-$user = "root";
-$pass = "";
-$db = "project_db";
+$user = "root"; // Nombre de usuario de MySQL
+$pass = ""; // Contraseña de MySQL
+$db = "project_db"; // Nombre de la base de datos a la que se desea conectar
 
-// Conexión a la base de datos
+// Conexión a la base de datos utilizando la clase mysqli
 $conexion = new mysqli($host, $user, $pass, $db);
 
-// Verificamos si hay algún error de conexión
+// Verificamos si hubo algún error en la conexión
 if ($conexion->connect_errno) {
+    // Si hubo un error, se muestra un mensaje y se detiene la ejecución del script
     die("Error de conexión a la base de datos: " . $conexion->connect_error);
 }
 
