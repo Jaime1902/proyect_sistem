@@ -99,7 +99,6 @@
                         }
                         $promedio = ($row['semestre1'] + $row['semestre2'] + $row['semestre3'] + $row['semestre4']) / 4;
                         echo '<td>' . $promedio . '</td>';
-                        echo '<td><a href="editar_nota.php?id_calificacion=' . $row['id_calificacion'] . '">Editar</a></td>';
 						echo '</tr>';
                     } else {
                         // Si el alumno no tiene nota en esta asignatura, mostrar campos vacíos

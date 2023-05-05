@@ -40,7 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       if ($_SESSION['role'] == 'administrador') {
         header("location: view\admin\index.php");
       } elseif ($_SESSION['role'] == 'secretaria') {
-        header("location: view\secretaria\secret.php");
+        header("location: view\secretaria\index.php");
       }
     } else {
       $_SESSION['login_error'] = "Nombre de usuario o contraseña incorrectos.";

@@ -2,7 +2,7 @@
 session_start();
 
 // Verificar si el usuario ha iniciado sesión y tiene un rol válido
-if (!isset($_SESSION['username']) || ($_SESSION['role'] != 'administrador')) {
+if (!isset($_SESSION['username']) || ($_SESSION['role'] != 'secretaria')) {
   header("location: ../../index.php");
   exit;
 }
