@@ -32,6 +32,20 @@ $_SESSION['last_activity'] = time();
     
     <title>Document</title>
 </head>
+<script>
+    // Función para recargar la página después de cierto tiempo de inactividad
+    function reloadAfterInactivity() {
+        setTimeout(function() {
+            location.reload();
+        }, <?php echo (360 - (time() - $_SESSION['last_activity'])) * 1000; ?>);
+    }
+
+    // Llamar la función de recarga automática en la carga de la página
+    window.onload = function() {
+        reloadAfterInactivity();
+    };
+</script>
+
 <body>
 <div id="header">
     <h1>Colegio Cristiano Presbiteriano</h1>
