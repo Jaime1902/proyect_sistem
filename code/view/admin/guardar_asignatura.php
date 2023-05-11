@@ -1,27 +1,29 @@
 <?php
 // Conexión a la base de datos
-include"../../conexion.php";
+include "../../conexion.php";
+
 // Verificación de conexión
 if (mysqli_connect_errno()) {
-	echo "Error al conectarse a MySQL: " . mysqli_connect_error();
-	exit();
+    echo "Error al conectarse a MySQL: " . mysqli_connect_error();
+    exit();
 }
 
 // Recopilación de datos del formulario
 $nombre_asignatura = $_POST['nombre_asignatura'];
 $id_grado = $_POST['id_grado'];
 
-// Consulta de inserción de datos
-$query = "INSERT INTO asignaturas (nombre_asignatura, id_grado) VALUES ('$nombre_asignatura', $id_grado)";
-$resultado = mysqli_query($conexion, $query);
+// Consulta preparada con marcadores de posición
+$stmt = $conexion->prepare("INSERT INTO asignaturas (nombre_asignatura, id_grado) VALUES (?, ?)");
+$stmt->bind_param("si", $nombre_asignatura, $id_grado);
 
-// Verificación del resultado de la inserción
-if ($resultado) {
-	echo "La asignatura se ha guardado correctamente.";
+// Ejecución de la consulta
+if ($stmt->execute()) {
+    header("Location: lobby_cursos.php");
 } else {
-	echo "Error al guardar la asignatura: " . mysqli_error($conexion);
+    echo "Error al guardar la asignatura: " . $stmt->error;
 }
 
 // Cierre de la conexión a la base de datos
-mysqli_close($conexion);
+$stmt->close();
+$conexion->close();
 ?>

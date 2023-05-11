@@ -134,7 +134,7 @@ $resultado = $stmt->get_result();
 		display: inline-block;
 		padding: 10px;
 		margin: 0 5px;
-		background-color: #333;
+		background-color: #555;
 		color: #fff;
 		text-align: center;
 		text-decoration: none;
@@ -142,11 +142,11 @@ $resultado = $stmt->get_result();
 	}
 	
 	.pagination a:hover {
-		background-color: #555;
+		background-color: #333;
 	}
 	
 	.pagination .active {
-		background-color: #555;
+		background-color: #333;
 	}
 </style>
 

@@ -1,6 +1,5 @@
 <?php 
   include("header.php"); 
-  date_default_timezone_set('America/Managua');
 ?>
 <!DOCTYPE html>
 <html lang="en">

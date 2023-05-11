@@ -1,4 +1,5 @@
 <?php
+ date_default_timezone_set('America/Managua');
 session_start();
 
 // Verificar si el usuario ha iniciado sesión y tiene un rol válido
