@@ -24,7 +24,7 @@ if (isset($_GET['id'])) {
 
 	if ($stmt_mensualidades->affected_rows > 0 || $stmt_calificaciones->affected_rows > 0 || $stmt_alumnos->affected_rows > 0) {
 		// Si se eliminaron registros de alguna tabla, redirigir a la lista de alumnos
-		header('Location: view_a.php');
+		header('Location: view_alumno.php');
 		exit;
 	} else {
 		echo "No se pudo eliminar el alumno.";

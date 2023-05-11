@@ -2,23 +2,30 @@
 include '../../conexion.php';
 include("header.php");
 
+// Configuración de paginación
+$limit = 10; // Número máximo de estudiantes a mostrar por página
+$page = isset($_GET['page']) ? $_GET['page'] : 1; // Página actual
+$offset = ($page - 1) * $limit; // Desplazamiento (offset) de la consulta
+
+// Consulta a la base de datos para obtener los datos de los alumnos
 if (isset($_POST['buscar'])) {
 	$valor = $_POST['buscar'];
 	$sql = "SELECT a.id_alumno, a.nombre, a.apellidos, a.fecha_nacimiento, g.nombre_grado 
 			FROM alumnos a 
 			INNER JOIN grados g ON a.id_grado = g.id_grado 
 			WHERE a.id_alumno = ? OR a.nombre LIKE ? OR a.fecha_nacimiento = ? OR a.apellidos LIKE ?
-			ORDER BY a.apellidos, a.nombre";
+			ORDER BY a.apellidos, a.nombre
+			LIMIT $limit OFFSET $offset";
 	$stmt = $conexion->prepare($sql);
 	$valor_like = "%" . $valor . "%";
 	$stmt->bind_param("ssss", $valor, $valor_like, $valor, $valor_like);
 	$stmt->execute();
 } else {
-	// Consulta a la base de datos para obtener los datos de los alumnos
 	$sql = "SELECT a.id_alumno, a.nombre, a.apellidos, a.fecha_nacimiento, g.nombre_grado 
 			FROM alumnos a 
 			INNER JOIN grados g ON a.id_grado = g.id_grado 
-			ORDER BY a.apellidos, a.nombre";
+			ORDER BY a.apellidos, a.nombre
+			LIMIT $limit OFFSET $offset";
 	$stmt = $conexion->prepare($sql);
 	$stmt->execute();
 }
@@ -31,6 +38,7 @@ $resultado = $stmt->get_result();
 <head>
 	<title>Lista de alumnos</title>
 </head>
+
 <style>
 	body {
 		font-family: Arial, sans-serif;
@@ -115,6 +123,31 @@ $resultado = $stmt->get_result();
 	.delete-link {
 		color: red;
 	}
+	
+	.pagination {
+		margin-top: 20px;
+		display: flex;
+		justify-content: center;
+	}
+	
+	.pagination a {
+		display: inline-block;
+		padding: 10px;
+		margin: 0 5px;
+		background-color: #333;
+		color: #fff;
+		text-align: center;
+		text-decoration: none;
+		border-radius: 5px;
+	}
+	
+	.pagination a:hover {
+		background-color: #555;
+	}
+	
+	.pagination .active {
+		background-color: #555;
+	}
 </style>
 
 <body>
@@ -143,6 +176,24 @@ $resultado = $stmt->get_result();
 			</tr>
 		<?php } ?>
 	</table>
+	
+	<?php 
+		// Mostrar la paginación
+		$sql_count = "SELECT COUNT(*) AS total FROM alumnos";
+		$resultado_count = $conexion->query($sql_count);
+		$fila_count = $resultado_count->fetch_assoc();
+		$total = $fila_count['total'];
+		$pages = ceil($total / $limit);
+		
+		if ($pages > 1) {
+			echo '<div class="pagination">';
+			for ($i = 1; $i <= $pages; $i++) {
+				$class = $page == $i ? 'class="active"' : '';
+				echo "<a href='?page=$i' $class>$i</a>";
+			}
+			echo '</div>';
+		}
+	?>
 
 	<script>
 		function eliminarAlumno(id) {
