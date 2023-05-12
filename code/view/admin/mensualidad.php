@@ -2,10 +2,8 @@
   include("header.php"); 
   ?>
 
-
 <!DOCTYPE html>
 <html>
-
 <head>
     <title>Formulario de Mensualidades</title>
     <style>
@@ -99,7 +97,6 @@
 }
     
     </style>
-  <link rel="stylesheet" type="text/css" href="estilos.css">
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script>
     $(document).ready(function() {
@@ -155,7 +152,7 @@
         <h1>Formulario de Mensualidades</h1>
         <form action="guardar_mensualidad.php" method="post">
           <label for="id_alumno">Alumno:</label><br>
-          <input type="text" id="id_alumno" name="id_alumno" autocomplete="off"><br>
+          <input type="text" id="id_alumno" name="id_alumno" autocomplete="off" required><br>
           <div id="resultado_busqueda" style="display: none;"></div>
           <input type="hidden" id="id_alumno_id" name="id_alumno_id">
 
@@ -163,7 +160,7 @@
           <input type="date" name="fecha_pago" value="<?php echo date('Y-m-d'); ?>" required><br>
 
           <label for="monto">Monto:</label><br>
-          <input type="number" id="monto" name="monto" step="0.01"><br>
+          <input type="number" id="monto" name="monto" step="0.01" required><br>
 
           <input type="submit" value="Guardar">
           <a id="ver_mensualidades" href="obtener_mensualidad.php?id_alumno=">Ver mensualidades</a>

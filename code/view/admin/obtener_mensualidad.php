@@ -3,6 +3,11 @@ if (isset($_POST['id_alumno'])) {
     // Obtener el id del alumno del parámetro POST
     $id_alumno = $_POST['id_alumno'];
 
+    if (!isset($id_alumno) || empty($id_alumno)) {
+        echo "Seleciona un alumno primero";
+        exit;
+    }
+
     // Conectarse a la base de datos
     $servername = "localhost";
     $username = "root";
