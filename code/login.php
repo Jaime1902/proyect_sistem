@@ -8,7 +8,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $password = $_POST["password"];
 
   // Verificar que el nombre de usuario y la contraseña contengan solo caracteres seguros
-  if (preg_match('/^[a-zA-Z0-9.]+$/', $username) && preg_match('/^[a-zA-Z0-9.]+$/', $password)) {
+  if (preg_match('/^[a-zA-Z0-9._]+$/', $username) && preg_match('/^[a-zA-Z0-9._]+$/', $password)) {
     // Convertir la contraseña en un hash
     $password_hash = hash('sha256', $password);
 

@@ -136,9 +136,8 @@ if (isset($_SESSION["id_login"])) {
                 </html>
                 <?php
             } else {
+                $_SESSION['error'] = "No se encontró ninguna calificación para el alumno y asignatura especificados.";
                 header("Location: 403.php");
-            
-                echo "No se encontró ninguna calificación para el alumno y asignatura especificados.";
             }
         } else {
             echo "No se encontró ningún registro de grado para el alumno correspondiente.";

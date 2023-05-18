@@ -20,7 +20,7 @@
       <ul>
         <li><a href="index.php">Inicio</a></li>
         <li><a href="view_asignatura.php">Ver Calificaciones</a></li>
-        <li><a href="view_asignatura.php">cerrar sesion</a></li>
+        <li><a href="close.php">cerrar sesion</a></li>
       </ul>
     </div>
   </div>
