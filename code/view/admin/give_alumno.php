@@ -196,11 +196,27 @@
             <label for="ocupacion_madre">Ocupación de la madre:</label>
             <input type="text" name="ocupacion_madre">
           </div>
+          <div>
+            <label for="Direcion">Direción:</label>
+            <input type="text" name="direccion_exacta">
+          </div>
         </div>
       </div>
-      
+      <div class="grupo">
+        <legend>Usuario del alumno</legend>
+        <div>
+          <div>
+            <label for="usrio_alumno">Usuario:</label>
+            <input type="text" name="username" required>
+          </div>
+          <div>
+            <label for="password_alumno">Contraseña:</label>
+            <input type="text" name="password" required>
+          </div>
+        </div>
+      </div>
+      <input type="hidden" name="role" value="alumno">
       <input type="submit" value="Agregar alumno">
-    </form>
   </div>
 </body>
 </html>

@@ -52,6 +52,15 @@
         <label for="carrera_universitaria">Carrera universitaria:</label>
         <input type="text" id="carrera_universitaria" name="carrera_universitaria"><br>
 
+
+        <label for="username">Usuario:</label>
+        <input type="text" id="username" name="username"><br>
+
+        <label for="password">Contraseña:</label>
+        <input type="text" id="password" name="password"><br>
+        
+        <input type="hidden" name="role" value="profesor">
+
         <input type="submit" value="Agregar profesor">
     </form>
 

@@ -7,27 +7,28 @@ $limit = 10; // Número máximo de estudiantes a mostrar por página
 $page = isset($_GET['page']) ? $_GET['page'] : 1; // Página actual
 $offset = ($page - 1) * $limit; // Desplazamiento (offset) de la consulta
 
+
 // Consulta a la base de datos para obtener los datos de los alumnos
 if (isset($_POST['buscar'])) {
-	$valor = $_POST['buscar'];
-	$sql = "SELECT a.id_alumno, a.nombre, a.apellidos, a.fecha_nacimiento, g.nombre_grado 
-			FROM alumnos a 
-			INNER JOIN grados g ON a.id_grado = g.id_grado 
-			WHERE a.id_alumno = ? OR a.nombre LIKE ? OR a.fecha_nacimiento = ? OR a.apellidos LIKE ?
-			ORDER BY a.apellidos, a.nombre
-			LIMIT $limit OFFSET $offset";
-	$stmt = $conexion->prepare($sql);
-	$valor_like = "%" . $valor . "%";
-	$stmt->bind_param("ssss", $valor, $valor_like, $valor, $valor_like);
-	$stmt->execute();
+    $valor = $_POST['buscar'];
+    $sql = "SELECT a.id_alumno, a.nombre, a.apellidos, a.fecha_nacimiento, g.nombre_grado 
+            FROM alumnos a 
+            INNER JOIN grados g ON a.id_grado = g.id_grado 
+            WHERE a.id_alumno = ? OR a.nombre LIKE ? OR a.fecha_nacimiento = ? OR a.apellidos LIKE ?
+            ORDER BY a.apellidos, a.nombre
+            LIMIT $limit OFFSET $offset";
+    $stmt = $conexion->prepare($sql);
+    $valor_like = "%" . $valor . "%";
+    $stmt->bind_param("ssss", $valor, $valor_like, $valor, $valor_like);
+    $stmt->execute();
 } else {
-	$sql = "SELECT a.id_alumno, a.nombre, a.apellidos, a.fecha_nacimiento, g.nombre_grado 
-			FROM alumnos a 
-			INNER JOIN grados g ON a.id_grado = g.id_grado 
-			ORDER BY a.apellidos, a.nombre
-			LIMIT $limit OFFSET $offset";
-	$stmt = $conexion->prepare($sql);
-	$stmt->execute();
+    $sql = "SELECT a.id_alumno, a.nombre, a.apellidos, a.fecha_nacimiento, g.nombre_grado 
+            FROM alumnos a 
+            INNER JOIN grados g ON a.id_grado = g.id_grado 
+            ORDER BY a.apellidos, a.nombre
+            LIMIT $limit OFFSET $offset";
+    $stmt = $conexion->prepare($sql);
+    $stmt->execute();
 }
 $resultado = $stmt->get_result();
 ?>
@@ -40,7 +41,7 @@ $resultado = $stmt->get_result();
 </head>
 
 <style>
-	body {
+		body {
 		font-family: Arial, sans-serif;
 		margin: 0;
 		padding: 0;
@@ -170,7 +171,7 @@ $resultado = $stmt->get_result();
 				<td><?php echo $fila['nombre_grado']; ?></td>
 				<td>
 					<a href="editar_alumno.php?id=<?php echo $fila['id_alumno']; ?>">Editar</a> |
-					<a href="show_alumno.php?id=<?php echo $fila['id_alumno']; ?>">Ver</a> |
+					<a href="show_alumno.php?id=<?php echo $fila['id_alumno'];?>">Ver</a> |
 					<a href="#" class="delete-link" onclick="eliminarAlumno(<?php echo $fila['id_alumno']; ?>)">Eliminar</a>
 				</td>
 			</tr>
@@ -196,9 +197,9 @@ $resultado = $stmt->get_result();
 	?>
 
 	<script>
-		function eliminarAlumno(id) {
+		function eliminarAlumno(id, token) {
 			if (confirm("¿Está seguro de que desea eliminar este alumno?")) {
-				window.location.href = "eliminar_alumno.php?id=" + id;
+				window.location.href = "eliminar_alumno.php?id=" + id + "&token=" + token;
 			}
 		}
 	</script>

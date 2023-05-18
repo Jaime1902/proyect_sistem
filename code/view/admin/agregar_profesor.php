@@ -11,41 +11,52 @@ $certificaciones = $_POST['certificaciones'];
 $carrera_universitaria = $_POST['carrera_universitaria'];
 $grados = $_POST['grado'];
 $asignaturas = $_POST['asignatura'];
+$username = $_POST['username'];
+$password = $_POST['password'];
+
+// Hash de la contraseña
+$hashed_password = hash('sha256', $password);
 
 // Iniciar transacción
 mysqli_begin_transaction($conexion);
 
 try {
-    // Insertar los datos en la tabla "profesores"
-    $consulta = "INSERT INTO profesores (nombre, apellido, correo_electronico, telefono, direccion, certificaciones, carrera_universitaria) 
-                 VALUES ('$nombre', '$apellido', '$correo_electronico', '$telefono', '$direccion', '$certificaciones', '$carrera_universitaria')";
-    $resultado = mysqli_query($conexion, $consulta);
+    // Insertar los datos en la tabla "login"
+    $stmt = $conexion->prepare("INSERT INTO login (username, password_hash, role) VALUES (?, ?, ?)");
+    $role = "profesor";
+    $stmt->bind_param("sss", $username, $hashed_password, $role);
+    if (!$stmt->execute()) {
+        throw new Exception(mysqli_error($conexion));
+    }
 
-    if (!$resultado) {
+    // Obtener el ID del usuario insertado
+    $id_usuario = $stmt->insert_id;
+
+    // Insertar los datos en la tabla "profesores"
+    $stmt = $conexion->prepare("INSERT INTO profesores (nombre, apellido, correo_electronico, telefono, direccion, certificaciones, carrera_universitaria, login_id) 
+                                 VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param("sssssssi", $nombre, $apellido, $correo_electronico, $telefono, $direccion, $certificaciones, $carrera_universitaria, $id_usuario);
+    if (!$stmt->execute()) {
         throw new Exception(mysqli_error($conexion));
     }
 
     // Obtener el ID del profesor insertado
-    $id_profesor = mysqli_insert_id($conexion);
+    $id_profesor = $stmt->insert_id;
 
     // Insertar los datos en la tabla "profesores_grados"
     foreach ($grados as $id_grado) {
-        $consulta = "INSERT INTO profesores_grados (id_profesor, id_grado) 
-                     VALUES ('$id_profesor', '$id_grado')";
-        $resultado = mysqli_query($conexion, $consulta);
-
-        if (!$resultado) {
+        $stmt = $conexion->prepare("INSERT INTO profesores_grados (id_profesor, id_grado) VALUES (?, ?)");
+        $stmt->bind_param("ii", $id_profesor, $id_grado);
+        if (!$stmt->execute()) {
             throw new Exception(mysqli_error($conexion));
         }
     }
 
     // Insertar los datos en la tabla "profesores_asignaturas"
     foreach ($asignaturas as $id_asignatura) {
-        $consulta = "INSERT INTO profesores_asignaturas (id_profesor, id_asignatura) 
-                     VALUES ('$id_profesor', '$id_asignatura')";
-        $resultado = mysqli_query($conexion, $consulta);
-
-        if (!$resultado) {
+        $stmt = $conexion->prepare("INSERT INTO profesores_asignaturas (id_profesor, id_asignatura) VALUES (?, ?)");
+        $stmt->bind_param("ii", $id_profesor, $id_asignatura);
+        if (!$stmt->execute()) {
             throw new Exception(mysqli_error($conexion));
         }
     }
@@ -53,7 +64,7 @@ try {
     // Confirmar transacción
     mysqli_commit($conexion);
 
-    header("Location: A_profesor.php");
+    header("Location: lobby_profesor.php");
 } catch (Exception $e) {
     // Revertir transacción en caso de error
     mysqli_rollback($conexion);
@@ -61,5 +72,6 @@ try {
     echo "Error al agregar profesor: " . $e->getMessage();
 }
 
-mysqli_close($conexion);
+$stmt->close();
+$conexion->close();
 ?>

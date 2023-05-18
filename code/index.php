@@ -1,6 +1,3 @@
-<?php
-include"mobil_or_pc.php";
-?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
