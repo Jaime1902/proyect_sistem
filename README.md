@@ -29,5 +29,8 @@ poder visualizar alos alumnos y poderlo editar desde la interfaz
 version 0.0.4 en proseso 
 
 se podra añadir alumnos se podra editar con mejor intefaz y añadir clases y mejoras de segurirar
+ariel.mendoza ariel123456
 
+demo_profe
+demo_123 Jaime.suarez Jaime123
 
