@@ -1,6 +1,5 @@
 <?php
-// Iniciar sesión
-session_start();
+include('header.php');
 
 // Validar que el usuario haya iniciado sesión
 if (!isset($_SESSION['id_profesor'])) {
@@ -40,12 +39,12 @@ if ($result->num_rows > 0) {
     $carrera_universitaria = htmlentities($row['carrera_universitaria']);
 } else {
     // El profesor no fue encontrado, puedes mostrar un mensaje de error o redireccionar a otra página
-    echo "Profesor no encontrado.";
+	$_SESSION['error'] = "Profesor no encontrado.";
+	header("Location: 403.php");
     exit;
 }
 
-// Incluir el archivo header.php que contiene la estructura del encabezado de la página
-include('header.php');
+
 ?>
 
 <!-- Aquí va el contenido específico de la página index.php -->

@@ -1,6 +1,6 @@
 <?php
 // Iniciar sesión
-session_start();
+include "header.php";
 
 // Datos de conexión a la base de datos
 $servername = "localhost";
@@ -101,7 +101,6 @@ if (isset($_SESSION["id_login"])) {
                 </head>
 
                 <body>
-                    <?php include "heder.php"; ?>
                     <div class="container">
                         <h3>Calificaciones de <?php echo $nombre_alumno; ?></h3>
                         <table class="table">

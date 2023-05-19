@@ -1,47 +1,56 @@
 <!DOCTYPE html>
 <html>
-    <?php include ("header.php");?>
-    <br><br>
+<?php include ("header.php");?>
+<br><br>
+
 <head>
-  <title>Asignaturas</title>
-  <style>
+    <title>Asignaturas</title>
+    <style>
     .button-container {
         display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
+        flex-wrap: wrap;
+        justify-content: center;
     }
 
     .asignatura-button {
         display: block;
-      width: 300px;
-      height: 100px;
-      margin: 10px;
-      background-color: <?php echo getRandomColor(); ?>;
-      border: none;
-      border-radius: 5px;
-      font-size: 18px;
-      color: #fff;
-      text-align: center;
-      text-decoration: none;
-      line-height: 100px;
+        width: 300px;
+        height: 100px;
+        margin: 10px;
+        background-color: <?php echo getRandomColor();
+        ?>;
+        border: none;
+        border-radius: 5px;
+        font-size: 18px;
+        color: #fff;
+        text-align: center;
+        text-decoration: none;
+        line-height: 100px;
     }
 
     .asignatura-button:hover {
-      opacity: 0.8;
+        opacity: 0.8;
     }
 
     .asignatura-button:active {
-      opacity: 0.6;
+        opacity: 0.6;
     }
-  </style>
+
+    </style>
 </head>
+<div class="button-container">
+<h2>Calificar Notas por Asignaturas</h2>
+</div>
+
+</div>
+
+
 <body>
-<?php
-session_start();
+    <?php
 
 // Validar que el usuario haya iniciado sesión
 if (!isset($_SESSION['id_profesor'])) {
-    header("Location: login.php");
+    header("Location: ../../index.php");
     exit;
 }
 
@@ -87,7 +96,9 @@ if ($result->num_rows > 0) {
     }
     echo '</div>';
 } else {
-    echo "No se encontraron asignaturas para este grado y profesor.";
+    $_SESSION['error'] = "No se encontraron asignaturas para este grado y profesor.";
+    header("Location: 403.php");
+
 }
 
 // Cerrar la conexión
@@ -100,4 +111,5 @@ function getRandomColor() {
 }
 ?>
 </body>
+
 </html>

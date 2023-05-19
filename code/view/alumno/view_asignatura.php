@@ -1,6 +1,6 @@
 <?php
 // Iniciar sesión
-session_start();
+include "header.php";
 
 // Datos de conexión a la base de datos
 $servername = "localhost";
@@ -66,12 +66,10 @@ if (isset($_SESSION["id_login"])) {
                     }
                 </style>
             </head>
-            <?php
-            include "heder.php";
-            ?>
             <body>
             <div class="container">
-            <h4>Asignaturas</h4>
+                <br>
+            <h4>Ver las Notas por Asignaturas</h4>
             <div class="row">
               <?php while($row = $result->fetch_assoc()) { 
                 // Seleccionar un color aleatorio

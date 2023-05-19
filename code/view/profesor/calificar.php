@@ -4,29 +4,15 @@
     <title>Calificar notas</title>
 </head>
 <style>
-    /* Estilos generales */
-body {
-    font-family: Arial, Helvetica, sans-serif;
-    margin: 0;
-    padding: 0;
-}
 
-/* Estilos del encabezado */
-.header {
-    background-color: #333;
-    color: #fff;
-    padding: 20px;
-}
-
-.header h1 {
-    margin: 0;
-}
 
 /* Estilos del contenedor de calificación de notas */
 .calificar-notas-container {
-    max-width: 800px;
+    max-width: 1000px;
     margin: 0 auto;
     padding: 20px;
+    
+    
 }
 
 .calificar-notas-title {

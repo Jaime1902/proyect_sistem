@@ -35,13 +35,15 @@
     }
   </style>
 </head>
+<div class="panel">
+<h2>Seleciona el Grado a Calificar</h2>
+</div>
 <body>
 <?php
-session_start();
 
 // Validar que el usuario haya iniciado sesión
 if (!isset($_SESSION['id_profesor'])) {
-    header("Location: login.php");
+    header("Location: ../../index.php");
     exit;
 }
 
@@ -81,7 +83,9 @@ if ($result->num_rows > 0) {
     }
     echo '</div>';
 } else {
-    echo "No se encontraron resultados.";
+  $_SESSION['error'] = "No se encontraron resultados.";
+  header("Location: 403.php");
+
 }
 
 // Cerrar la conexión

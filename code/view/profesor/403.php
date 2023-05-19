@@ -1,6 +1,28 @@
 <?php
-session_start(); // Iniciamos la sesión para poder almacenar información entre páginas
+ date_default_timezone_set('America/Managua');
+session_start();
+
+// Verificar si el usuario ha iniciado sesión y tiene un rol válido
+if (!isset($_SESSION['username']) || ($_SESSION['role'] != 'profesor')) {
+  header("location: ../../index.php");
+  exit;
+}
+
+// Verificar si ha pasado más de 5 minutos desde la última acción del usuario
+if (isset($_SESSION['last_activity']) && (time() - $_SESSION['last_activity'] > 360)) {
+  // Destruir la sesión
+  session_unset();
+  session_destroy();
+  header("location: ../../index.php");
+  exit;
+}
+
+// Actualizar el tiempo de última actividad de la sesión
+$_SESSION['last_activity'] = time();
+
 ?>
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -55,6 +77,19 @@ session_start(); // Iniciamos la sesión para poder almacenar información entre
     }
     </style>
 </head>
+<script>
+    // Función para recargar la página después de cierto tiempo de inactividad
+    function reloadAfterInactivity() {
+        setTimeout(function() {
+            location.reload();
+        }, <?php echo (360 - (time() - $_SESSION['last_activity'])) * 1000; ?>);
+    }
+
+    // Llamar la función de recarga automática en la carga de la página
+    window.onload = function() {
+        reloadAfterInactivity();
+    };
+</script>
 
 <body>
     <div class="error-container">

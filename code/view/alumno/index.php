@@ -1,7 +1,5 @@
 <?php
-// Iniciar sesión
-session_start();
-
+include "header.php"; 
 // Datos de conexión a la base de datos
 $servername = "localhost";
 $username = "root";
@@ -63,7 +61,6 @@ if (isset($_SESSION["id_login"])) {
     </style>
 </head>
 <body>
-    <?php include "heder.php"; ?>
     <div class="container">
       <br><br>
         <h3>Información del Estudiante</h3>
