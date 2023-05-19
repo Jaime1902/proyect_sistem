@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 05-05-2023 a las 18:54:12
--- Versión del servidor: 10.4.27-MariaDB
--- Versión de PHP: 8.2.0
+-- Tiempo de generación: 19-05-2023 a las 23:45:39
+-- Versión del servidor: 10.4.28-MariaDB
+-- Versión de PHP: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -29,6 +29,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `alumnos` (
   `id_alumno` int(11) NOT NULL,
+  `login_id` int(11) NOT NULL,
   `nombre` varchar(50) NOT NULL,
   `apellidos` varchar(50) NOT NULL,
   `lugar_nacimiento` varchar(50) NOT NULL,
@@ -51,8 +52,9 @@ CREATE TABLE `alumnos` (
 -- Volcado de datos para la tabla `alumnos`
 --
 
-INSERT INTO `alumnos` (`id_alumno`, `nombre`, `apellidos`, `lugar_nacimiento`, `fecha_nacimiento`, `codigo_estudiante`, `id_grado`, `fecha_inscripcion`, `padecimiento_alergia`, `nombre_padre`, `nombre_madre`, `cedula_padre`, `cedula_madre`, `telefono_emergencia`, `ocupacion_padre`, `ocupacion_madre`, `direccion_exacta`) VALUES
-(1, 'Jaime Alexander', 'Suarez Carvajal', 'Hospital', '2005-02-19', '0011101101', 8, '2023-04-19', 'NULL', 'Jaime', 'Yessenia', '0022102y', '894069638', '5551236', 'nose jajaj', 'nose', 'Una casa pegada al suelo');
+INSERT INTO `alumnos` (`id_alumno`, `login_id`, `nombre`, `apellidos`, `lugar_nacimiento`, `fecha_nacimiento`, `codigo_estudiante`, `id_grado`, `fecha_inscripcion`, `padecimiento_alergia`, `nombre_padre`, `nombre_madre`, `cedula_padre`, `cedula_madre`, `telefono_emergencia`, `ocupacion_padre`, `ocupacion_madre`, `direccion_exacta`) VALUES
+(22, 5, 'Jaime', 'Suarez', 'Hospital', '2005-02-19', '0011101105', 8, '2023-05-17', 'alergia', 'Santos Rivera', 'JUANA MENDOZA', '001-040590-0000J', '0010405900000K', '5551236', 'comerciante', 'ama de casa', 'Contiguo a la coop. 104'),
+(23, 6, 'Ariel', 'Urroz', 'managua', '2002-02-19', '0001552520541', 8, '2023-05-17', 'null', 'Santos Rivera', 'JUANA MENDOZA', '001-040590-0000J', '0010405900000K', '5551235', 'nose jajaj', 'ama de casa', 'Contiguo a la coop. 104');
 
 -- --------------------------------------------------------
 
@@ -79,7 +81,8 @@ INSERT INTO `asignaturas` (`id_asignatura`, `nombre_asignatura`, `id_grado`) VAL
 (10, 'Lengua y literatura', 13),
 (11, 'Lengua Y literatura', 6),
 (12, 'Lengua Y literatura', 5),
-(13, 'Matematica', 5);
+(13, 'Matematica', 5),
+(14, 'Matematica', 8);
 
 -- --------------------------------------------------------
 
@@ -104,8 +107,10 @@ CREATE TABLE `calificaciones` (
 --
 
 INSERT INTO `calificaciones` (`id_calificacion`, `id_alumno`, `id_grado`, `id_asignatura`, `semestre1`, `semestre2`, `semestre3`, `semestre4`) VALUES
-(40, 1, 8, 1, 85, NULL, NULL, NULL),
-(41, 1, 8, 4, 87, NULL, NULL, NULL);
+(63, 22, 8, 1, 95, 90, 85, 82),
+(64, 23, 8, 1, 85, 95, 78, 90),
+(65, 22, 8, 4, 87, 92, NULL, NULL),
+(66, 23, 8, 4, 80, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -147,7 +152,7 @@ CREATE TABLE `login` (
   `id` int(11) NOT NULL,
   `username` varchar(50) NOT NULL,
   `password_hash` varchar(64) NOT NULL,
-  `role` enum('administrador','secretaria') NOT NULL
+  `role` enum('administrador','secretaria','alumno','profesor') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -156,7 +161,12 @@ CREATE TABLE `login` (
 
 INSERT INTO `login` (`id`, `username`, `password_hash`, `role`) VALUES
 (1, 'admin', '240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9', 'administrador'),
-(2, 'secretaria', '1c392f167af58d8184653ba5f241d00f8e847e3e83211a04be121339ee2744e9', 'secretaria');
+(2, 'secretaria', '1c392f167af58d8184653ba5f241d00f8e847e3e83211a04be121339ee2744e9', 'secretaria'),
+(3, 'estudiante', '29500c9eac355cca3d3d0e75e86ce585cb8f670d10516c168050c8ead6250c70', 'alumno'),
+(4, 'profesor', '25da2ece06d8767eccaff139d4ba7490dd1b9aeeb51f413de23bce797cc47e68', 'profesor'),
+(5, 'Jaime.suarez', '8d82f3cfbac62255ca057baa6d8cb94e293a41c542a135756217b6e223682fbb', 'alumno'),
+(6, 'ariel.mendoza', '10800b752b5c3c0df0c573c349eea71cb1750ae291abb48f458afe4e51b0ff8c', 'alumno'),
+(8, 'demo_profe', '49dac2d67d9813dedcd8cf9fe71b03f11f00b4d25cfc4f2be5d5fcbdf141b62a', 'profesor');
 
 -- --------------------------------------------------------
 
@@ -171,18 +181,6 @@ CREATE TABLE `mensualidades` (
   `monto` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Volcado de datos para la tabla `mensualidades`
---
-
-INSERT INTO `mensualidades` (`id_mensualidad`, `id_alumno`, `fecha_pago`, `monto`) VALUES
-(1, 1, '2023-04-19', 720),
-(2, 1, '2023-02-19', 450),
-(3, 1, '2023-03-19', 450),
-(13, 1, '2023-04-19', 780),
-(14, 1, '2023-05-04', 730),
-(15, 1, '0000-00-00', 450);
-
 -- --------------------------------------------------------
 
 --
@@ -191,6 +189,7 @@ INSERT INTO `mensualidades` (`id_mensualidad`, `id_alumno`, `fecha_pago`, `monto
 
 CREATE TABLE `profesores` (
   `id_profesor` int(11) NOT NULL,
+  `login_id` int(11) NOT NULL,
   `nombre` varchar(50) NOT NULL,
   `apellido` varchar(50) NOT NULL,
   `correo_electronico` varchar(50) NOT NULL,
@@ -204,10 +203,8 @@ CREATE TABLE `profesores` (
 -- Volcado de datos para la tabla `profesores`
 --
 
-INSERT INTO `profesores` (`id_profesor`, `nombre`, `apellido`, `correo_electronico`, `telefono`, `direccion`, `certificaciones`, `carrera_universitaria`) VALUES
-(5, 'Ariel', 'Costa', 'Arielcosta@gmail.com', '547821', 'Calle los alpes 210', 'si', 'Ingeniero'),
-(6, 'Juan', 'Gonzales', 'osoriocosta@gmail.com', '547821', 'null', 'si', 'Ingeniero'),
-(8, 'Marlon', 'Gonzales', 'osoriocosta@gmail.com', '547821554', 'null', 'si', 'Ingeniero');
+INSERT INTO `profesores` (`id_profesor`, `login_id`, `nombre`, `apellido`, `correo_electronico`, `telefono`, `direccion`, `certificaciones`, `carrera_universitaria`) VALUES
+(10, 8, 'demo', 'Costa', 'Arielcosta@gmail.com', '547821', 'Calle los alpes 210', 'si tiene', 'Ingeniero');
 
 -- --------------------------------------------------------
 
@@ -225,11 +222,10 @@ CREATE TABLE `profesores_asignaturas` (
 --
 
 INSERT INTO `profesores_asignaturas` (`id_profesor`, `id_asignatura`) VALUES
-(5, 1),
-(5, 9),
-(5, 10),
-(6, 10),
-(8, 10);
+(10, 1),
+(10, 4),
+(10, 10),
+(10, 13);
 
 -- --------------------------------------------------------
 
@@ -247,12 +243,12 @@ CREATE TABLE `profesores_grados` (
 --
 
 INSERT INTO `profesores_grados` (`id_profesor`, `id_grado`) VALUES
-(5, 8),
-(5, 13),
-(6, 4),
-(6, 12),
-(6, 13),
-(8, 13);
+(10, 8),
+(10, 9),
+(10, 10),
+(10, 11),
+(10, 12),
+(10, 13);
 
 --
 -- Índices para tablas volcadas
@@ -263,7 +259,8 @@ INSERT INTO `profesores_grados` (`id_profesor`, `id_grado`) VALUES
 --
 ALTER TABLE `alumnos`
   ADD PRIMARY KEY (`id_alumno`),
-  ADD KEY `id_grado` (`id_grado`);
+  ADD KEY `id_grado` (`id_grado`),
+  ADD KEY `login_id` (`login_id`);
 
 --
 -- Indices de la tabla `asignaturas`
@@ -304,7 +301,8 @@ ALTER TABLE `mensualidades`
 -- Indices de la tabla `profesores`
 --
 ALTER TABLE `profesores`
-  ADD PRIMARY KEY (`id_profesor`);
+  ADD PRIMARY KEY (`id_profesor`),
+  ADD KEY `login_id` (`login_id`);
 
 --
 -- Indices de la tabla `profesores_asignaturas`
@@ -328,19 +326,19 @@ ALTER TABLE `profesores_grados`
 -- AUTO_INCREMENT de la tabla `alumnos`
 --
 ALTER TABLE `alumnos`
-  MODIFY `id_alumno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_alumno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT de la tabla `asignaturas`
 --
 ALTER TABLE `asignaturas`
-  MODIFY `id_asignatura` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id_asignatura` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT de la tabla `calificaciones`
 --
 ALTER TABLE `calificaciones`
-  MODIFY `id_calificacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+  MODIFY `id_calificacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
 
 --
 -- AUTO_INCREMENT de la tabla `grados`
@@ -352,19 +350,19 @@ ALTER TABLE `grados`
 -- AUTO_INCREMENT de la tabla `login`
 --
 ALTER TABLE `login`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `mensualidades`
 --
 ALTER TABLE `mensualidades`
-  MODIFY `id_mensualidad` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id_mensualidad` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT de la tabla `profesores`
 --
 ALTER TABLE `profesores`
-  MODIFY `id_profesor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_profesor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- Restricciones para tablas volcadas
@@ -374,7 +372,9 @@ ALTER TABLE `profesores`
 -- Filtros para la tabla `alumnos`
 --
 ALTER TABLE `alumnos`
-  ADD CONSTRAINT `alumnos_ibfk_1` FOREIGN KEY (`id_grado`) REFERENCES `grados` (`id_grado`);
+  ADD CONSTRAINT `alumnos_ibfk_1` FOREIGN KEY (`id_grado`) REFERENCES `grados` (`id_grado`),
+  ADD CONSTRAINT `alumnos_ibfk_2` FOREIGN KEY (`login_id`) REFERENCES `login` (`id`),
+  ADD CONSTRAINT `alumnos_ibfk_3` FOREIGN KEY (`login_id`) REFERENCES `login` (`id`);
 
 --
 -- Filtros para la tabla `asignaturas`
@@ -395,6 +395,13 @@ ALTER TABLE `calificaciones`
 --
 ALTER TABLE `mensualidades`
   ADD CONSTRAINT `mensualidades_ibfk_1` FOREIGN KEY (`id_alumno`) REFERENCES `alumnos` (`id_alumno`);
+
+--
+-- Filtros para la tabla `profesores`
+--
+ALTER TABLE `profesores`
+  ADD CONSTRAINT `profesores_ibfk_1` FOREIGN KEY (`login_id`) REFERENCES `login` (`id`),
+  ADD CONSTRAINT `profesores_ibfk_2` FOREIGN KEY (`login_id`) REFERENCES `login` (`id`);
 
 --
 -- Filtros para la tabla `profesores_asignaturas`

@@ -49,10 +49,64 @@ include('header.php');
 ?>
 
 <!-- Aquí va el contenido específico de la página index.php -->
-<h1>Bienvenido, <?php echo $nombre . ' ' . $apellido; ?>!</h1>
-<p>Correo electrónico: <?php echo $correo; ?></p>
-<p>Teléfono: <?php echo $telefono; ?></p>
-<p>Carrera universitaria: <?php echo $carrera_universitaria; ?></p>
+<style>
+	.table-bordered {
+		border-collapse: separate;
+		border: 1px solid #ddd;
+		border-radius: 6px;
+	}
+
+	.table-bordered th,
+	.table-bordered td {
+		border: none;
+	}
+
+	.table-bordered thead th {
+		border-bottom: 1px solid #ddd;
+        text-align: center;
+	}
+
+	.table-bordered tbody > tr:first-child th,
+	.table-bordered tbody > tr:first-child td {
+		border-top: none;
+	}
+
+	.table-bordered tbody > tr:last-child th,
+	.table-bordered tbody > tr:last-child td {
+		border-bottom: none;
+	}
+
+	.table-bordered tbody > tr > th:first-child,
+	.table-bordered tbody > tr > td:first-child {
+		border-left: none;
+	}
+
+	.table-bordered tbody > tr > th:last-child,
+	.table-bordered tbody > tr > td:last-child {
+		border-right: none;
+	}
+</style>
+
+<div class="container">
+	<h1>Bienvenido al sistema, <?php echo $nombre . ' ' . $apellido; ?>!</h1>
+	<table class="table table-bordered">
+		<tbody>
+			<tr>
+				<th>Correo electrónico:</th>
+				<td><?php echo $correo; ?></td>
+			</tr>
+			<tr>
+				<th>Teléfono:</th>
+				<td><?php echo $telefono; ?></td>
+			</tr>
+			<tr>
+				<th>Carrera universitaria:</th>
+				<td><?php echo $carrera_universitaria; ?></td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
 
 <?php
 // Aquí va el resto del contenido de la página index.php
