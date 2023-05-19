@@ -86,7 +86,7 @@ include('header.php');
 		border-right: none;
 	}
 </style>
-
+<br><br>
 <div class="container">
 	<h1>Bienvenido al sistema, <?php echo $nombre . ' ' . $apellido; ?>!</h1>
 	<table class="table table-bordered">
@@ -116,5 +116,4 @@ $stmt->close();
 $conn->close();
 
 // Incluir el archivo footer.php que contiene la estructura del pie de página
-include('footer.php');
 ?>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Nombre del Colegio - Dashboard</title>
+	<title>profesor</title>
 	<!-- Importar los estilos de Bootstrap -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
@@ -59,7 +59,7 @@
 <body>
 	<header class="dashboard-header">
 		<div class="container">
-			<h1 class="dashboard-brand">Nombre del Colegio - Dashboard</h1>
+			<h1 class="dashboard-brand">Colegio Cristano Prebiteriano</h1>
 		</div>
 	</header>
 

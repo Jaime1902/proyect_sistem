@@ -1,3 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <?php include ("header.php");?>
+    <br><br>
+<head>
+  <title>Asignaturas</title>
+  <style>
+    .button-container {
+        display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .asignatura-button {
+        display: block;
+      width: 300px;
+      height: 100px;
+      margin: 10px;
+      background-color: <?php echo getRandomColor(); ?>;
+      border: none;
+      border-radius: 5px;
+      font-size: 18px;
+      color: #fff;
+      text-align: center;
+      text-decoration: none;
+      line-height: 100px;
+    }
+
+    .asignatura-button:hover {
+      opacity: 0.8;
+    }
+
+    .asignatura-button:active {
+      opacity: 0.6;
+    }
+  </style>
+</head>
+<body>
 <?php
 session_start();
 
@@ -15,7 +53,7 @@ if (isset($_GET['id_grado'])) {
     $id_grado = $_GET['id_grado'];
 } else {
     // Redirigir en caso de que no se proporcione un ID de grado válido
-    header("Location: grados.php");
+    header("Location: view_grado.php");
     exit;
 }
 
@@ -42,17 +80,24 @@ $sql = "SELECT asignaturas.id_asignatura, asignaturas.nombre_asignatura
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
+    echo '<div class="button-container">';
     // Mostrar los resultados de la consulta
     while ($row = $result->fetch_assoc()) {
-        echo "ID Asignatura: " . $row["id_asignatura"] . ", Nombre Asignatura: " . $row["nombre_asignatura"] . "<br>";
-        
-        // Agregar un enlace para cada asignatura que redirija a calificar.php con el ID de la asignatura correspondiente
-        echo '<a href="calificar.php?id_asignatura=' . $row['id_asignatura'] . '&id_grado=' . $_GET['id_grado'] . '">' . $row['nombre_asignatura'] . '</a>';
+        echo '<a href="calificar.php?id_asignatura=' . $row['id_asignatura'] . '&id_grado=' . $_GET['id_grado'] . '" class="asignatura-button">' . $row['nombre_asignatura'] . '</a>';
     }
+    echo '</div>';
 } else {
     echo "No se encontraron asignaturas para este grado y profesor.";
 }
 
 // Cerrar la conexión
 $conn->close();
+
+// Función para obtener un color aleatorio
+function getRandomColor() {
+    $colors = ['#8bc34a', '#e53935', '#ff9800', '#d32f2f', '#4caf50'];
+    return $colors[array_rand($colors)];
+}
 ?>
+</body>
+</html>

@@ -92,14 +92,17 @@ if (isset($_SESSION["id_login"])) {
 
 <?php
       } else {
-        echo "No se encontró ningún registro de grado para el alumno correspondiente.";
+
+        $_SESSION['error'] = "No se encontró ningún registro de grado para el alumno correspondiente.";
+            header("Location: 403.php");
       }
     } else {
-      echo "No se encontró ningún registro de alumno y grado para el usuario actual.";
+      $_SESSION['error'] = "No se encontró ningún registro de alumno y grado para el usuario actual.";
+      header("Location: 403.php");
     }
   } else {
     // Si el usuario no está autenticado, redirigir al formulario de inicio de sesión
-    header("Location: login.php");
+    header("Location: ../../index.php");
     exit();
   }
 ?>
