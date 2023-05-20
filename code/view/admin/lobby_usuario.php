@@ -12,16 +12,16 @@
 </head>
 <body>
   <div id="content">
-    <div class="module module-student">
-      <a href="prof.php">
-        <img src="../../img/logo/agregar-usuario.png" alt="Estudiantes">
-        <h2>Añadir Profesores</h2>
+    <div class="module module-grade">
+      <a href="añadir_admin.php">
+        <img src="../../img/logo/anadir-grupo.png" alt="Estudiantes">
+        <h2>Añadir Cuentas</h2>
       </a>
     </div>
-    <div class="module module-teacher">
-      <a href="view_profesor.php">
-        <img src="../../img/logo/lista-de-verificacion.png" alt="Profesores">
-        <h2>Visualizar Profesores</h2>
+    <div class="module module-pricing">
+      <a href="usuario.php">
+        <img src="../../img/logo/clave.png" alt="Profesores">
+        <h2>Cambiar Contraseña</h2>
       </a>
     </div>
   </div>

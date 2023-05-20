@@ -41,6 +41,12 @@
         <h2>Mensualidad</h2>
       </a>
     </div>
+    <div class="module module-class">
+      <a href="lobby_usuario.php">
+        <img src="../../img/logo/agregar-usuario.png" alt="usuarios">
+        <h2>Agregar usuario</h2>
+      </a>
+    </div>
   </div>
 </body>
 </html> 

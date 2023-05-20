@@ -59,6 +59,7 @@ $_SESSION['last_activity'] = time();
     <a href="lobby_profesor.php">Profesores</a>
     <a href="lobby_cursos.php">Cursos</a>
     <a href="calificaciones.php">Calificaciones</a>
+    <a href="Lobby_usuario.php">Agregar usuario</a>
     <a href="close.php">Cerrar sesión</a>
   </div>
     
