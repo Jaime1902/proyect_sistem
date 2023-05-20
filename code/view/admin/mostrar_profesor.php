@@ -5,7 +5,14 @@
 <?php
 include "../../conexion.php";
 
-$id_profesor = $_GET['id'];
+if (isset($_GET['id'])) {
+  $id_profesor = $_GET['id'];
+} else {
+  // Redirigir en caso de que no se proporcione un ID de grado válido
+  header("Location: view_profesor.php");
+  exit;
+}
+
 
 // Obtener la información del profesor
 $consulta = "SELECT p.*, GROUP_CONCAT(pg.id_grado SEPARATOR ', ') AS id_grados, GROUP_CONCAT(pa.id_asignatura SEPARATOR ', ') AS id_asignaturas
@@ -17,7 +24,9 @@ $resultado = mysqli_query($conexion, $consulta);
 
 // Verificar si se encontró al profesor
 if (mysqli_num_rows($resultado) == 0) {
-  echo "<p>No se encontró al profesor.</p>";
+
+  header("Location: 403.php");
+
 } else {
   $fila = mysqli_fetch_assoc($resultado);
 ?>
@@ -92,12 +101,12 @@ if (mysqli_num_rows($resultado) == 0) {
      <?php
     // Obtener los nombres de las asignaturas y grados del profesor
     $consulta_asignaturas = "SELECT a.nombre_asignatura, g.nombre_grado
-                             FROM asignaturas a
-                             INNER JOIN profesores_asignaturas pa ON a.id_asignatura = pa.id_asignatura
-                             INNER JOIN profesores_grados pg ON pg.id_profesor = pa.id_profesor
-                             INNER JOIN grados g ON g.id_grado = pg.id_grado
-                             WHERE pa.id_profesor = $id_profesor";
-    $resultado_asignaturas = mysqli_query($conexion, $consulta_asignaturas);
+                        FROM asignaturas a
+                        INNER JOIN profesores_asignaturas pa ON a.id_asignatura = pa.id_asignatura
+                        INNER JOIN grados g ON g.id_grado = a.id_grado
+                        WHERE pa.id_profesor = $id_profesor";
+
+$resultado_asignaturas = mysqli_query($conexion, $consulta_asignaturas);
 
     // Mostrar la lista de asignaturas y grados
     while ($fila_asignatura = mysqli_fetch_assoc($resultado_asignaturas)) {

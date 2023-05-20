@@ -8,6 +8,12 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Agregar nuevo alumno</title>
+  <?php if(isset($_SESSION['sucese'])) { ?> <!-- Si hay un error en el inicio de sesión, se muestra el mensaje de error -->
+  <div class="login-error">
+    <p><?php echo $_SESSION['sucese']; ?></p>
+  </div>
+  <?php unset($_SESSION['sucese']); } ?> <!-- Se elimina el mensaje de error de la sesión para que no aparezca de nuevo -->
+  <br><br>
   <style>
     /* Estilos generales */
     * {

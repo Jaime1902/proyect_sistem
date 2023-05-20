@@ -65,7 +65,7 @@ if (isset($_POST['submit'])) {
     }
 
     // Redirigimos al usuario a la página de listado de profesores
-    header("Location: listar_profesores.php");
+    header("Location: lobby_profesor.php");
     exit();
 }
 
@@ -83,6 +83,7 @@ if (!$resultado) {
 }
 $profesor = mysqli_fetch_assoc($resultado);
 
+
 // Recuperamos los grados del profesor
 $query = "SELECT id_grado FROM profesores_grados WHERE id_profesor=$id_profesor";
 $resultado = mysqli_query($conexion, $query);
@@ -95,6 +96,7 @@ while ($fila = mysqli_fetch_assoc($resultado)) {
 }
 
 // Recuperamos las asignaturas del profesor
+// Recuperamos las asignaturas del profesor
 $query = "SELECT id_asignatura FROM profesores_asignaturas WHERE id_profesor=$id_profesor";
 $resultado = mysqli_query($conexion, $query);
 if (!$resultado) {
@@ -105,6 +107,7 @@ while ($fila = mysqli_fetch_assoc($resultado)) {
     $asignaturas[] = $fila['id_asignatura'];
 }
 
+// Recuperamos los grados y las asignaturas de la base de datos
 // Recuperamos los grados y las asignaturas de la base de datos
 $query = "SELECT * FROM grados";
 $resultado_grados = mysqli_query($conexion, $query);
@@ -117,52 +120,132 @@ $resultado_asignaturas = mysqli_query($conexion, $query);
 if (!$resultado_asignaturas) {
     die("Error al recuperar las asignaturas: " . mysqli_error($conexion));
 }
+
 ?>
+<!DOCTYPE html>
+<html>
 
-<h1>Editar Profesor</h1>
+<head>
+    <title>Editar Profesor</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
 
-<form method="post">
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
 
-  <input type="hidden" name="id_profesor" value="<?php echo $profesor['id_profesor']; ?>">
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+        }
 
-  <label for="nombre">Nombre:</label>
-  <input type="text" name="nombre" id="nombre" value="<?php echo $profesor['nombre']; ?>" required><br>
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
 
-  <label for="apellido">Apellido:</label>
-  <input type="text" name="apellido" id="apellido" value="<?php echo $profesor['apellido']; ?>" required><br>
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"] {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
 
-  <label for="correo_electronico">Correo electrónico:</label>
-  <input type="email" name="correo_electronico" id="correo_electronico" value="<?php echo $profesor['correo_electronico']; ?>" required><br>
+        select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
 
-  <label for="telefono">Teléfono:</label>
-  <input type="tel" name="telefono" id="telefono" value="<?php echo $profesor['telefono']; ?>" required><br>
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
 
-  <label for="direccion">Dirección:</label>
-  <input type="text" name="direccion" id="direccion" value="<?php echo $profesor['direccion']; ?>" required><br>
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
 
-  <label for="certificaciones">Certificaciones:</label>
-  <input type="text" name="certificaciones" id="certificaciones" value="<?php echo $profesor['certificaciones']; ?>"><br>
+        .error {
+            color: red;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
 
-  <label for="carrera_universitaria">Carrera universitaria:</label>
-  <input type="text" name="carrera_universitaria" id="carrera_universitaria" value="<?php echo $profesor['carrera_universitaria']; ?>"><br>
+<body>
+    <br><br>
+    <form class="panel-form" method="post">
+    <h1>Editar Profesor</h1>
+        <input type="hidden" name="id_profesor" value="<?php echo $profesor['id_profesor']; ?>">
 
-  <label for="grados">Grados:</label>
-  <select name="grados[]" id="grados" multiple required>
-    <?php while ($grado = mysqli_fetch_assoc($resultado_grados)): ?>
-      <option value="<?php echo $grado['id_grado']; ?>" <?php if (in_array($grado['id_grado'], $grados)): ?>selected<?php endif; ?>><?php echo $grado['nombre_grado']; ?></option>
-    <?php endwhile; ?>
-  </select><br>
+        <label for="nombre">Nombre:</label>
+        <input type="text" name="nombre" id="nombre" value="<?php echo $profesor['nombre']; ?>" required><br>
 
-  <label for="asignaturas">Asignaturas:</label>
-  <select name="asignaturas[]" id="asignaturas" multiple required>
-    <?php while ($asignatura = mysqli_fetch_assoc($resultado_asignaturas)): ?>
-      <option value="<?php echo $asignatura['id_asignatura']; ?>" <?php if (in_array($asignatura['id_asignatura'], $asignaturas)): ?>selected<?php endif; ?>><?php echo $asignatura['nombre_asignatura']; ?></option>
-    <?php endwhile; ?>
-  </select><br>
+        <label for="apellido">Apellido:</label>
+        <input type="text" name="apellido" id="apellido" value="<?php echo $profesor['apellido']; ?>" required><br>
 
-  <input type="submit" name="submit" value="Guardar cambios">
+        <label for="correo_electronico">Correo electrónico:</label>
+        <input type="email" name="correo_electronico" id="correo_electronico" value="<?php echo $profesor['correo_electronico']; ?>" required><br>
 
-</form>
+        <label for="telefono">Teléfono:</label>
+        <input type="tel" name="telefono" id="telefono" value="<?php echo $profesor['telefono']; ?>" required><br>
+
+        <label for="direccion">Dirección:</label>
+        <input type="text" name="direccion" id="direccion" value="<?php echo $profesor['direccion']; ?>" required><br>
+
+        <label for="certificaciones">Certificaciones:</label>
+        <input type="text" name="certificaciones" id="certificaciones" value="<?php echo $profesor['certificaciones']; ?>"><br>
+
+        <label for="carrera_universitaria">Carrera universitaria:</label>
+        <input type="text" name="carrera_universitaria" id="carrera_universitaria" value="<?php echo $profesor['carrera_universitaria']; ?>"><br>
+
+        <label for="grados">Grados:</label>
+        <select name="grados[]" id="grados" multiple required>
+            <?php while ($grado = mysqli_fetch_assoc($resultado_grados)): ?>
+            <option value="<?php echo $grado['id_grado']; ?>" <?php if (in_array($grado['id_grado'], $grados)): ?>selected<?php endif; ?>><?php echo $grado['nombre_grado']; ?></option>
+            <?php endwhile; ?>
+        </select><br>
+
+        <label for="asignaturas">Asignaturas:</label>
+        <select name="asignaturas[]" id="asignaturas" multiple required>
+            <?php
+            while ($asignatura = mysqli_fetch_assoc($resultado_asignaturas)):
+                $id_asignatura = $asignatura['id_asignatura'];
+                $nombre_asignatura = $asignatura['nombre_asignatura'];
+                $id_grado = $asignatura['id_grado'];
+
+                // Recuperamos el nombre del grado de la tabla "grados"
+                $query_grado = "SELECT nombre_grado FROM grados WHERE id_grado = $id_grado";
+                $resultado_grado = mysqli_query($conexion, $query_grado);
+                $grado = mysqli_fetch_assoc($resultado_grado);
+                $nombre_grado = $grado['nombre_grado'];
+            ?>
+            <option value="<?php echo $id_asignatura; ?>" <?php if (in_array($id_asignatura, $asignaturas)): ?>selected<?php endif; ?>>
+                <?php echo $nombre_asignatura; ?> (<?php echo $nombre_grado; ?>)
+            </option>
+            <?php endwhile; ?>
+        </select><br>
+
+        <input type="submit" name="submit" value="Guardar cambios">
+    </form>
+</body>
+
+</html>
+
 
 <!-- Inicializamos los selectores de Select2 -->
 <script>

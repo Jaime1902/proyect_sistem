@@ -8,8 +8,10 @@
 	<title>Formulario de Asignaturas</title>
 </head>
 <body>
+	<br><br>
+	
+	<form class="panel-form" action="guardar_asignatura.php" method="post">
 	<h1>Formulario de Asignaturas</h1>
-	<form action="guardar_asignatura.php" method="post">
 		<label for="nombre_asignatura">Nombre de la asignatura:</label><br>
 		<input type="text" id="nombre_asignatura" name="nombre_asignatura"><br>
 

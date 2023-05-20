@@ -31,7 +31,8 @@ $stmt_login->bind_param("sss", $username, $hashed_password, $role);
 
 // Ejecutamos la consulta para insertar el registro en la tabla `login`
 if (!$stmt_login->execute()) {
-    echo "Error al agregar al alumno: " . $stmt_login->error;
+    $_SESSION['error'] = "Error al agregar al alumno: " . $stmt_login->error;
+    header("Location: 403.php");
     $stmt_login->close();
     $conexion->close();
     exit();
@@ -46,9 +47,12 @@ $stmt_alumnos->bind_param("sssssissssssssssi", $nombre, $apellidos, $lugar_nacim
 
 // Ejecutamos la consulta para insertar el registro en la tabla `alumnos`
 if ($stmt_alumnos->execute()) {
-    echo "El alumno ha sido agregado correctamente";
+    $_SESSION['sucese'] = "se a añadido Correctamente";
+    header("Location: give_alumno.php");
+
 } else {
-    echo "Error al agregar al alumno: " . $stmt_alumnos->error;
+    $_SESSION['error'] = "Error al agregar al alumno: " . $stmt_alumnos->error;
+    header("Location: 403.php");
 }
 
 // Cerramos las consultas preparadas y la conexión a la base de datos

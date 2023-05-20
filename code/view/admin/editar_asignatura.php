@@ -31,9 +31,10 @@
     <title>Editar asignatura</title>
 </head>
 <body>
-    <h1>Editar asignatura</h1>
+<br><br>
 
-    <form method="POST">
+    <form class="panel-form" method="POST">
+    <h1>Editar asignatura</h1>
         <div>
             <label for="nombre_asignatura">Nombre:</label>
             <input type="text" id="nombre_asignatura" name="nombre_asignatura" value="<?php echo $row['nombre_asignatura']; ?>" required>

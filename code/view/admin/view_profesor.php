@@ -1,25 +1,37 @@
-<?php 
-include("header.php"); 
-?>
-
 <?php
+include("header.php");
 include "../../conexion.php";
 
-// Obtener la información de los profesores y sus grados
+// Obtener la página actual
+$pagina = isset($_GET['pagina']) ? $_GET['pagina'] : 1;
+
+// Establecer el número de resultados por página y el desplazamiento
+$resultados_por_pagina = 10;
+$desplazamiento = ($pagina - 1) * $resultados_por_pagina;
+
+// Obtener la información de los profesores y sus grados con límite y desplazamiento
 $consulta = "SELECT p.id_profesor, p.nombre, p.apellido, p.carrera_universitaria, GROUP_CONCAT(pg.id_grado SEPARATOR ', ') AS id_grados
              FROM profesores p
              LEFT JOIN profesores_grados pg ON p.id_profesor = pg.id_profesor
-             GROUP BY p.id_profesor";
+             GROUP BY p.id_profesor
+             LIMIT $desplazamiento, $resultados_por_pagina";
 
 // Verificar si se ha enviado una consulta de búsqueda
 if (isset($_GET['buscar'])) {
-  $busqueda = $_GET['buscar'];
+  $busqueda = mysqli_real_escape_string($conexion, $_GET['buscar']);
   // Agregar la condición de búsqueda a la consulta
   $consulta .= " HAVING nombre LIKE '%$busqueda%' OR apellido LIKE '%$busqueda%'";
 }
 
 $resultado = mysqli_query($conexion, $consulta);
+
+// Obtener el número total de resultados para la paginación
+$total_resultados = mysqli_num_rows(mysqli_query($conexion, "SELECT * FROM profesores"));
+
+// Calcular el número total de páginas
+$total_paginas = ceil($total_resultados / $resultados_por_pagina);
 ?>
+
 <style>
 body {
     font-family: Arial, sans-serif;
@@ -134,10 +146,23 @@ td a:hover {
       <td>
         <a href="editar_profesor.php?id=<?php echo $fila['id_profesor']; ?>">Editar</a> |
         <a href="mostrar_profesor.php?id=<?php echo $fila['id_profesor']; ?>">Mostrar</a> |
-        <a href="eliminar_profesor.php?id=<?php echo $fila['id_profesor']; ?>"class="delete-link onclick="return confirm('¿Estás seguro de que deseas eliminar este registro?')">Eliminar</a>
+        <a href="eliminar_profesor.php?id=<?php echo $fila['id_profesor']; ?>" class="delete-link" onclick="return confirm('¿Estás seguro de que deseas eliminar este registro?')">Eliminar</a>
       </td>
     </tr>
   <?php } ?>
 </table>
+
+<!-- Paginación -->
+<div class="pagination">
+  <?php if ($pagina > 1) { ?>
+    <a href="?pagina=<?php echo ($pagina - 1); ?>">Anterior</a>
+  <?php } ?>
+  <?php for ($i = 1; $i <= $total_paginas; $i++) { ?>
+    <a href="?pagina=<?php echo $i; ?>" <?php if ($i === $pagina) echo 'class="active"'; ?>><?php echo $i; ?></a>
+  <?php } ?>
+  <?php if ($pagina < $total_paginas) { ?>
+    <a href="?pagina=<?php echo ($pagina + 1); ?>">Siguiente</a>
+  <?php } ?>
+</div>
 
 <?php mysqli_close($conexion); ?>
