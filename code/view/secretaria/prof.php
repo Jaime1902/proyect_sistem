@@ -11,8 +11,10 @@
 </head>
 
 <body>
+    <br><br>
+    
+    <form class="panel-form"  action="agregar_profesor.php" method="POST">
     <h1>Agregar profesor</h1>
-    <form action="agregar_profesor.php" method="POST">
         <label for="nombre">Nombre:</label>
         <input type="text" id="nombre" name="nombre" required><br>
 

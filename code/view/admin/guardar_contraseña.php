@@ -25,7 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // El usuario existe, procede a actualizar la contraseña
         $sql = "UPDATE login SET password_hash = SHA2('$nuevaContrasena', 256) WHERE username = '$usuario'";
         if ($conn->query($sql) === TRUE) {
-            header("Location: lobby_usurio.php");
+            header("Location: lobby_usuario.php");
         } else {
             echo "Error al actualizar la contraseña: " . $conn->error;
         }

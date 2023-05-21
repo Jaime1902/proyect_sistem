@@ -26,7 +26,7 @@
     <div class="module module-class">
       <a href="lobby_cursos.php">
         <img src="../../img/logo/cuadernos.png" alt="Cursos">
-        <h2>Cursos</h2>
+        <h2>Cursos y Grados</h2>
       </a>
     </div>
     <div class="module module-grade">

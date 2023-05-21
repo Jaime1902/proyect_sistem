@@ -24,6 +24,18 @@
         <h2>Visualizar cursos</h2>
       </a>
     </div>
+    <div class="module module-grade">
+      <a href="grados.php">
+        <img src="../../img/logo/salon-de-clases.png" alt="Profesores">
+        <h2>Agregar grados</h2>
+      </a>
+    </div>
+    <div class="module module-pricing">
+      <a href="view_grados.php">
+        <img src="../../img/logo/lista-de-quehaceres.png" alt="Profesores">
+        <h2>Visualizar grados</h2>
+      </a>
+    </div>
   </div>
 </body>
 </html>
