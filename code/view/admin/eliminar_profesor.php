@@ -17,7 +17,7 @@ if (isset($_GET['id'])) {
   mysqli_query($conexion, $consulta_profesor);
 
   // Redirigir a la página de lista de profesores
-  header("Location: view_prof.php");
+  header("Location: view_profesor.php");
   exit();
 }
 

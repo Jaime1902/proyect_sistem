@@ -12,16 +12,17 @@ $desplazamiento = ($pagina - 1) * $resultados_por_pagina;
 // Obtener la información de los profesores y sus grados con límite y desplazamiento
 $consulta = "SELECT p.id_profesor, p.nombre, p.apellido, p.carrera_universitaria, GROUP_CONCAT(pg.id_grado SEPARATOR ', ') AS id_grados
              FROM profesores p
-             LEFT JOIN profesores_grados pg ON p.id_profesor = pg.id_profesor
-             GROUP BY p.id_profesor
-             LIMIT $desplazamiento, $resultados_por_pagina";
+             LEFT JOIN profesores_grados pg ON p.id_profesor = pg.id_profesor";
 
 // Verificar si se ha enviado una consulta de búsqueda
 if (isset($_GET['buscar'])) {
   $busqueda = mysqli_real_escape_string($conexion, $_GET['buscar']);
   // Agregar la condición de búsqueda a la consulta
-  $consulta .= " HAVING nombre LIKE '%$busqueda%' OR apellido LIKE '%$busqueda%'";
+  $consulta .= " WHERE p.nombre LIKE '%$busqueda%' OR p.apellido LIKE '%$busqueda%' OR p.carrera_universitaria LIKE '%$busqueda%'";
 }
+
+$consulta .= " GROUP BY p.id_profesor
+               LIMIT $desplazamiento, $resultados_por_pagina";
 
 $resultado = mysqli_query($conexion, $consulta);
 
@@ -31,6 +32,9 @@ $total_resultados = mysqli_num_rows(mysqli_query($conexion, "SELECT * FROM profe
 // Calcular el número total de páginas
 $total_paginas = ceil($total_resultados / $resultados_por_pagina);
 ?>
+
+<!-- Resto del código HTML y estilos -->
+
 
 <style>
 body {
