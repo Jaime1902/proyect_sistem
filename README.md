@@ -34,3 +34,7 @@ ariel.mendoza ariel123456
 demo_profe
 demo_123 Jaime.suarez Jaime123
 
+-------------------------------0.0.6-------------------------------------
+Novedades se completaron todo lo que es interfaz se proporciono una view para alumnno y profesores}
++
+
