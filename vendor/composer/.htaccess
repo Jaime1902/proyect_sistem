@@ -1,0 +1,7 @@
+Options -Indexes
+Deny from all
+<FilesMatch "\.(jpg|jpeg|png|gif)$">
+    Allow from all
+</FilesMatch>
+ErrorDocument 403 /error403.php
+
