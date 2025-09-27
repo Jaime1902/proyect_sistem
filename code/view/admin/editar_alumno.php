@@ -54,7 +54,7 @@ if(isset($_POST['actualizar'])){
 
   $_SESSION['mensaje'] = 'Alumno actualizado correctamente';
   $_SESSION['tipo_mensaje'] = 'success';
-  header('Location: A_estudiante.php');
+  header('Location: view_alumno.php');
   }
   ?>
   

@@ -1,4 +1,4 @@
-<?php
+<?php 
 // Conexión a la base de datos
 include "../../conexion.php";
 
@@ -32,33 +32,26 @@ foreach ($notas_semestre1 as $id_alumno => $nota_semestre1) {
 
     if ($count == 0) {
         // El registro de calificaciones no existe, insertar un nuevo registro
-        $query = "INSERT INTO calificaciones (id_alumno, id_grado, id_asignatura, semestre1, semestre2, semestre3, semestre4, promedio_final) VALUES ('$id_alumno', '$id_grado', '$id_asignatura', ";
-        $query .= $nota_semestre1 !== "" ? "'".intval($nota_semestre1)."', " : "NULL, ";
-        $query .= $nota_semestre2 !== "" ? "'".intval($nota_semestre2)."', " : "NULL, ";
-        $query .= $nota_semestre3 !== "" ? "'".intval($nota_semestre3)."', " : "NULL, ";
-        $query .= $nota_semestre4 !== "" ? "'".intval($nota_semestre4)."', " : "NULL, ";
-        $query .= "NULL)";
-
-        // Ejecutar la consulta
-        if (!$conexion->query($query)) {
-            echo 'Error al guardar las notas: ' . $conexion->error;
-            exit();
-        }
+        $query = "INSERT INTO calificaciones (id_alumno, id_grado, id_asignatura, semestre1, semestre2, semestre3, semestre4) VALUES ('$id_alumno', '$id_grado', '$id_asignatura', ";
+        $query .= $nota_semestre1 !== "" ? intval($nota_semestre1) . ", " : "NULL, ";
+        $query .= $nota_semestre2 !== "" ? intval($nota_semestre2) . ", " : "NULL, ";
+        $query .= $nota_semestre3 !== "" ? intval($nota_semestre3) . ", " : "NULL, ";
+        $query .= $nota_semestre4 !== "" ? intval($nota_semestre4) . ")" : "NULL)";
     } else {
-        // El registro de calificaciones ya existe, no se actualiza ningún dato si ya tienen valor
+        // El registro de calificaciones ya existe, actualizar solo si las columnas están vacías
         $query = "UPDATE calificaciones SET ";
-        $query .= $nota_semestre1 !== "" ? "semestre1=IF(semestre1 IS NULL, '".intval($nota_semestre1)."', semestre1), " : "";
-        $query .= $nota_semestre2 !== "" ? "semestre2=IF(semestre2 IS NULL, '".intval($nota_semestre2)."', semestre2), " : "";
-        $query .= $nota_semestre3 !== "" ? "semestre3=IF(semestre3 IS NULL, '".intval($nota_semestre3)."', semestre3), " : "";
-        $query .= $nota_semestre4 !== "" ? "semestre4=IF(semestre4 IS NULL, '".intval($nota_semestre4)."', semestre4), " : "";
-        $query .= "promedio_final=NULL ";
-        $query .= "WHERE id_alumno='$id_alumno' AND id_grado='$id_grado' AND id_asignatura='$id_asignatura'";
+        $query .= $nota_semestre1 !== "" ? "semestre1 = IF(semestre1 IS NULL, " . intval($nota_semestre1) . ", semestre1), " : "";
+        $query .= $nota_semestre2 !== "" ? "semestre2 = IF(semestre2 IS NULL, " . intval($nota_semestre2) . ", semestre2), " : "";
+        $query .= $nota_semestre3 !== "" ? "semestre3 = IF(semestre3 IS NULL, " . intval($nota_semestre3) . ", semestre3), " : "";
+        $query .= $nota_semestre4 !== "" ? "semestre4 = IF(semestre4 IS NULL, " . intval($nota_semestre4) . ", semestre4), " : "";
+        $query = rtrim($query, ", "); // Elimina la última coma
+        $query .= " WHERE id_alumno='$id_alumno' AND id_grado='$id_grado' AND id_asignatura='$id_asignatura'";
+    }
 
-        // Ejecutar la consulta
-        if (!$conexion->query($query)) {
-            echo 'Error al guardar las notas: ' . $conexion->error;
-            exit();
-        }
+    // Ejecutar la consulta
+    if (!$conexion->query($query)) {
+        echo 'Error al guardar las notas: ' . $conexion->error;
+        exit();
     }
 }
 

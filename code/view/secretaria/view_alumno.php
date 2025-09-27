@@ -38,6 +38,8 @@ $resultado = $stmt->get_result();
 
 <head>
 	<title>Lista de alumnos</title>
+	  <!-- Incluir el CDN de Font Awesome -->
+	  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 
 <style>
@@ -165,15 +167,17 @@ $resultado = $stmt->get_result();
 			<th>Acciones</th>
 		</tr>
 		<?php while ($fila = $resultado->fetch_assoc()) { ?>
-			<tr>
-				<td><?php echo $fila['nombre'] . ' ' . $fila['apellidos']; ?></td>
-				<td><?php echo $fila['fecha_nacimiento']; ?></td>
-				<td><?php echo $fila['nombre_grado']; ?></td>
-				<td>
-					<a href="show_alumno.php?id=<?php echo $fila['id_alumno'];?>">Ver</a> 
-				</td>
-			</tr>
-		<?php } ?>
+            <tr>
+                <td><?php echo $fila['nombre'] . ' ' . $fila['apellidos']; ?></td>
+                <td><?php echo $fila['fecha_nacimiento']; ?></td>
+                <td><?php echo $fila['nombre_grado']; ?></td>
+                <td>
+                    <a href="show_alumno.php?id=<?php echo $fila['id_alumno']; ?>">
+                        <i class="fas fa-eye"></i> Ver
+                    </a> 
+                </td>
+            </tr>
+        <?php } ?>
 	</table>
 	
 	<?php 
@@ -193,7 +197,6 @@ $resultado = $stmt->get_result();
 			echo '</div>';
 		}
 	?>
-
 </body>
 
 </html>

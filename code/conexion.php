@@ -2,7 +2,7 @@
 // Datos para la conexión a la base de datos
 $host = "localhost"; // Cambia esto si tu servidor de MySQL está en otro host
 $user = "root"; // Nombre de usuario de MySQL
-$pass = ""; // Contraseña de MySQL
+$pass = "mysql"; // Contraseña de MySQL
 $db = "project_db"; // Nombre de la base de datos a la que se desea conectar
 
 // Conexión a la base de datos utilizando la clase mysqli

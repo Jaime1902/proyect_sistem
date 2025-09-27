@@ -5,7 +5,7 @@ include "header.php";
 // Datos de conexión a la base de datos
 $servername = "localhost";
 $username = "root";
-$password = "";
+$password = "mysql";
 $dbname = "project_db";
 
 // Crear conexión
@@ -87,7 +87,6 @@ if (isset($_SESSION["id_login"])) {
                 <head>
                     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
                     <!-- Importar los estilos de Bootstrap -->
-                    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
                     <link rel="stylesheet" href="style.css">
                     <style>
                         .container {
@@ -128,8 +127,6 @@ if (isset($_SESSION["id_login"])) {
                             </tbody>
                         </table>
                     </div>
-                    <!-- Importar los scripts de Bootstrap -->
-                    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
                 </body>
 
                 </html>

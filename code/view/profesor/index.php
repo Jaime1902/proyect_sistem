@@ -10,10 +10,10 @@ if (!isset($_SESSION['id_profesor'])) {
 // Obtener el ID del profesor desde la sesión
 $id_profesor = $_SESSION['id_profesor'];
 
-// Realizar la conexión a la base de datos (asegúrate de reemplazar los valores con los correctos)
+// Realizar la conexión a la base de datos
 $servername = "localhost";
 $username = "root";
-$password = "";
+$password = "mysql";
 $dbname = "project_db";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -23,14 +23,13 @@ if ($conn->connect_error) {
     die("Error de conexión a la base de datos: " . $conn->connect_error);
 }
 
-// Obtener los datos del profesor de la base de datos utilizando una consulta preparada
+// Obtener los datos del profesor de la base de datos
 $stmt = $conn->prepare("SELECT nombre, apellido, correo_electronico, telefono, carrera_universitaria FROM profesores WHERE id_profesor = ?");
 $stmt->bind_param("i", $id_profesor);
 $stmt->execute();
 $result = $stmt->get_result();
 
 if ($result->num_rows > 0) {
-    // El profesor fue encontrado, obtener los datos y mostrarlos
     $row = $result->fetch_assoc();
     $nombre = htmlentities($row['nombre']);
     $apellido = htmlentities($row['apellido']);
@@ -38,81 +37,54 @@ if ($result->num_rows > 0) {
     $telefono = htmlentities($row['telefono']);
     $carrera_universitaria = htmlentities($row['carrera_universitaria']);
 } else {
-    // El profesor no fue encontrado, puedes mostrar un mensaje de error o redireccionar a otra página
-	$_SESSION['error'] = "Profesor no encontrado.";
-	header("Location: 403.php");
+    $_SESSION['error'] = "Profesor no encontrado.";
+    header("Location: 403.php");
     exit;
 }
-
-
 ?>
 
-<!-- Aquí va el contenido específico de la página index.php -->
-<style>
-	.table-bordered {
-		border-collapse: separate;
-		border: 1px solid #ddd;
-		border-radius: 6px;
-	}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Información del Profesor</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-5">
+    <h1 class="text-center mb-4">¡Bienvenido, <?php echo $nombre . ' ' . $apellido; ?>!</h1>
+    <table class="table table-hover table-striped fs-5" style="padding: 1rem;">
 
-	.table-bordered th,
-	.table-bordered td {
-		border: none;
-	}
-
-	.table-bordered thead th {
-		border-bottom: 1px solid #ddd;
-        text-align: center;
-	}
-
-	.table-bordered tbody > tr:first-child th,
-	.table-bordered tbody > tr:first-child td {
-		border-top: none;
-	}
-
-	.table-bordered tbody > tr:last-child th,
-	.table-bordered tbody > tr:last-child td {
-		border-bottom: none;
-	}
-
-	.table-bordered tbody > tr > th:first-child,
-	.table-bordered tbody > tr > td:first-child {
-		border-left: none;
-	}
-
-	.table-bordered tbody > tr > th:last-child,
-	.table-bordered tbody > tr > td:last-child {
-		border-right: none;
-	}
-</style>
-<br><br>
-<div class="container">
-	<h1>Bienvenido al sistema, <?php echo $nombre . ' ' . $apellido; ?>!</h1>
-	<table class="table table-bordered">
-		<tbody>
-			<tr>
-				<th>Correo electrónico:</th>
-				<td><?php echo $correo; ?></td>
-			</tr>
-			<tr>
-				<th>Teléfono:</th>
-				<td><?php echo $telefono; ?></td>
-			</tr>
-			<tr>
-				<th>Carrera universitaria:</th>
-				<td><?php echo $carrera_universitaria; ?></td>
-			</tr>
-		</tbody>
-	</table>
+        <thead class="table-primary">
+            <tr>
+                <th><i class="fas fa-info-circle"></i> Información</th>
+                <th><i class="fas fa-database"></i> Detalle</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><i class="fas fa-envelope"></i> Correo electrónico</td>
+                <td><?php echo $correo; ?></td>
+            </tr>
+            <tr>
+                <td><i class="fas fa-phone"></i> Teléfono</td>
+                <td><?php echo $telefono; ?></td>
+            </tr>
+            <tr>
+                <td><i class="fas fa-graduation-cap"></i> Carrera universitaria</td>
+                <td><?php echo $carrera_universitaria; ?></td>
+            </tr>
+        </tbody>
+    </table>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
 
 <?php
-// Aquí va el resto del contenido de la página index.php
-
-// Cerrar la conexión a la base de datos
 $stmt->close();
 $conn->close();
-
-// Incluir el archivo footer.php que contiene la estructura del pie de página
 ?>

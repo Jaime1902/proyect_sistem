@@ -156,7 +156,7 @@ td a:hover {
        <td><?php echo $fila['id_grado']; ?></td>
       <td><?php echo $fila['nombre_grado']; ?></td>
       <td>
-        <a href="editar_grado.php?id=<?php echo $fila['id_grado']; ?>">Editar</a> |
+        <a href="editar_grado.php?id=<?php echo $fila['id_grado']; ?>">Editar</a>
       </td>
     </tr>
     

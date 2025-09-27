@@ -17,7 +17,6 @@ if (isset($_SESSION['last_activity']) && (time() - $_SESSION['last_activity'] > 
   exit;
 }
 
-// Actualizar el tiempo de última actividad de la sesión
 $_SESSION['last_activity'] = time();
 
 ?>

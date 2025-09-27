@@ -1,115 +1,120 @@
+<?php include "header.php"; ?>
 <!DOCTYPE html>
-<html>
-<?php include ("header.php");?>
-<br><br>
-
+<html lang="en">
 <head>
-    <title>Asignaturas</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asignaturas por grado</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-    .button-container {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-    }
+        .card {
+            border-radius: 15px;
+            overflow: hidden;
+            color: #fff;
+        }
 
-    .asignatura-button {
-        display: block;
-        width: 300px;
-        height: 100px;
-        margin: 10px;
-        background-color: <?php echo getRandomColor();
-        ?>;
-        border: none;
-        border-radius: 5px;
-        font-size: 18px;
-        color: #fff;
-        text-align: center;
-        text-decoration: none;
-        line-height: 100px;
-    }
+        .card img {
+            height: 150px;
+            object-fit: cover;
+        }
 
-    .asignatura-button:hover {
-        opacity: 0.8;
-    }
+        .card .card-body {
+            padding: 40px;
+        }
 
-    .asignatura-button:active {
-        opacity: 0.6;
-    }
+        .bg-red {
+            background-color: #e53935;
+        }
 
+        .bg-green {
+            background-color: #8bc34a;
+        }
+
+        .bg-blue {
+            background-color: #ff9800;
+        }
+
+        h1 {
+            margin-bottom: 50px;
+            text-align: center;
+        }
     </style>
 </head>
-<div class="button-container">
-<h2>Calificar Notas por Asignaturas</h2>
-</div>
-
-</div>
-
-
 <body>
-    <?php
+    <div class="container mt-4">
+        <?php
+           
+            if (!isset($_SESSION['id_profesor'])) {
+                header("Location: ../../index.php");
+                exit;
+            }
+            $id_profesor = $_SESSION['id_profesor'];
+            if (!isset($_GET['id_grado'])) {
+                header("Location: view_grado.php");
+                exit;
+            }
 
-// Validar que el usuario haya iniciado sesión
-if (!isset($_SESSION['id_profesor'])) {
-    header("Location: ../../index.php");
-    exit;
-}
+            $id_grado = $_GET['id_grado'];
 
-// Obtener el ID del profesor desde la sesión
-$id_profesor = $_SESSION['id_profesor'];
+            $servername = "localhost";
+            $username = "root";
+            $password = "mysql";
+            $dbname = "project_db";
+            
+            $conn = new mysqli($servername, $username, $password, $dbname);
 
-// Obtener el ID del grado desde la URL
-if (isset($_GET['id_grado'])) {
-    $id_grado = $_GET['id_grado'];
-} else {
-    // Redirigir en caso de que no se proporcione un ID de grado válido
-    header("Location: view_grado.php");
-    exit;
-}
+            if ($conn->connect_error) {
+                die("Error de conexión: " . $conn->connect_error);
+            }
 
-// Realizar la consulta SQL
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "project_db";
+            // Obtener el nombre del grado
+            $query_grado = "SELECT nombre_grado FROM grados WHERE id_grado = $id_grado";
+            $result_grado = $conn->query($query_grado);
+            $nombre_grado = $result_grado->fetch_assoc()['nombre_grado'];
+        ?>
 
-// Crear la conexión
-$conn = new mysqli($servername, $username, $password, $dbname);
+        <h1>Asignaturas de <?php echo $nombre_grado; ?></h1>
 
-// Verificar la conexión
-if ($conn->connect_error) {
-    die("Error de conexión: " . $conn->connect_error);
-}
+        <div class="row">
+            <?php
+                // Obtener las asignaturas del profesor para el grado seleccionado
+                $query = "SELECT asignaturas.id_asignatura, asignaturas.nombre_asignatura, asignaturas.ruta_imagen
+                          FROM profesores_asignaturas
+                          INNER JOIN asignaturas ON profesores_asignaturas.id_asignatura = asignaturas.id_asignatura
+                          WHERE profesores_asignaturas.id_profesor = $id_profesor AND asignaturas.id_grado = $id_grado";
 
-// Consulta SQL
-$sql = "SELECT asignaturas.id_asignatura, asignaturas.nombre_asignatura
-        FROM profesores_asignaturas
-        INNER JOIN asignaturas ON profesores_asignaturas.id_asignatura = asignaturas.id_asignatura
-        WHERE profesores_asignaturas.id_profesor = $id_profesor AND asignaturas.id_grado = $id_grado";
+                $result = $conn->query($query);
 
-$result = $conn->query($sql);
+                $colors = ['bg-red', 'bg-green', 'bg-blue'];
 
-if ($result->num_rows > 0) {
-    echo '<div class="button-container">';
-    // Mostrar los resultados de la consulta
-    while ($row = $result->fetch_assoc()) {
-        echo '<a href="calificar.php?id_asignatura=' . $row['id_asignatura'] . '&id_grado=' . $_GET['id_grado'] . '" class="asignatura-button">' . $row['nombre_asignatura'] . '</a>';
-    }
-    echo '</div>';
-} else {
-    $_SESSION['error'] = "No se encontraron asignaturas para este grado y profesor.";
-    header("Location: 403.php");
+                if ($result->num_rows > 0) {
+                    while ($row = $result->fetch_assoc()) {
+                        $imagen = !empty($row['ruta_imagen']) ? $row['ruta_imagen'] : 'img/Asignatura/predeterminada.png';
+                        $color_class = $colors[array_rand($colors)];
 
-}
+                        echo '
+                            <div class="col-md-4 mb-4">
+                                <div class="card ' . $color_class . ' text-center">
+                                    <img src="' . $imagen . '" class="card-img-top" alt="' . $row['nombre_asignatura'] . '">
+                                    <div class="card-body">
+                                        <h5 class="card-title">' . $row['nombre_asignatura'] . '</h5>
+                                        <a href="calificar.php?id_asignatura=' . $row['id_asignatura'] . '&id_grado=' . $id_grado . '" class="btn btn-light">Ver detalles</a>
+                                    </div>
+                                </div>
+                            </div>
+                        ';
+                    }
+                } else {
+                    echo '<div class="alert alert-warning">No se encontraron asignaturas para este grado.</div>';
+                }
 
-// Cerrar la conexión
-$conn->close();
+                $conn->close();
+            ?>
+        </div>
+    </div>
 
-// Función para obtener un color aleatorio
-function getRandomColor() {
-    $colors = ['#8bc34a', '#e53935', '#ff9800', '#d32f2f', '#4caf50'];
-    return $colors[array_rand($colors)];
-}
-?>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-
 </html>

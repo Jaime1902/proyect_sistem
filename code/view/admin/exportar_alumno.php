@@ -1,17 +1,22 @@
 <?php
-
+session_start();
 // Conexión a la base de datos
 $host = 'localhost';
 $user = 'root';
-$password = '';
+$password = 'mysql';
 $database = 'project_db';
 
 $mysqli = new mysqli($host, $user, $password, $database);
 
 // Comprobar la conexión
 if ($mysqli->connect_errno) {
-  printf("Falló la conexión: %s\n", $mysqli->connect_error);
-  exit();
+    printf("Falló la conexión: %s\n", $mysqli->connect_error);
+    exit();
+}
+// Verificar si el usuario ha iniciado sesión y tiene un rol válido
+if (!isset($_SESSION['username']) || ($_SESSION['role'] != 'administrador')) {
+  header("location: ../../index.php");
+  exit;
 }
 
 $id_alumno = $_GET['id'];
@@ -22,7 +27,6 @@ $query = "SELECT nombre, apellidos, lugar_nacimiento, fecha_nacimiento, codigo_e
           INNER JOIN grados g ON a.id_grado = g.id_grado
           WHERE a.id_alumno = $id_alumno";
 
-// Ejecutar la consulta
 $resultado = $mysqli->query($query);
 
 // Crear un nuevo PDF
@@ -32,57 +36,78 @@ $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8',
 
 // Establecer información del documento
 $pdf->SetCreator(PDF_CREATOR);
-$pdf->SetAuthor('Nombre del autor');
-$pdf->SetTitle('Título del documento');
-$pdf->SetSubject('Asunto del documento');
-$pdf->SetKeywords('palabras clave, separadas por, comas');
+$pdf->SetAuthor('Colegio Cristiano Presbiteriano');
+$pdf->SetTitle('Reporte de Datos del Alumno');
+$pdf->SetSubject('Datos del Alumno');
+$pdf->SetKeywords('reporte, alumno, colegio');
 
-// Establecer margenes
+// Configuración de página
 $pdf->SetMargins(10, 10, 10);
-$pdf->SetHeaderMargin(0);
-$pdf->SetFooterMargin(0);
+$pdf->SetHeaderMargin(5);
+$pdf->SetFooterMargin(10);
+$pdf->SetAutoPageBreak(TRUE, 15);
 
-// Agregar una página
+// Añadir una página
 $pdf->AddPage();
 
-// Establecer el color de fondo y el color del texto
-$pdf->SetFillColor(200, 200, 200);
-$pdf->SetTextColor(0, 0, 0);
+$logo_path = '../../img/logo/logo.png'; // Cambia esto a la ruta correcta
+if (file_exists($logo_path)) {
+    $pdf->Image($logo_path, 10, 15, 30, 30, '', '', '', false, 300, '', false, false, 0, false, false, false);
+}
 
-// Establecer la fuente y el tamaño de la fuente para el título
+$pdf->SetFont('helvetica', 'B', 16);
+$pdf->Cell(0, 15, 'Colegio Cristiano Presbiteriano', 0, 1, 'C', 0);
+$pdf->Ln(10);
+
+// Título del reporte
 $pdf->SetFont('helvetica', 'B', 14);
+$pdf->Cell(0, 10, 'Reporte de Datos del Alumno', 0, 1, 'C', 0);
+$pdf->Ln(5);
 
-// Obtener el nombre completo del alumno y el grado
+// Obtener los datos del alumno
 $fila = $resultado->fetch_assoc();
-
 $nombre_completo = $fila['nombre'] . ' ' . $fila['apellidos'];
 $grado = $fila['nombre_grado'];
 
-// Agregar el título
-$pdf->Cell(0, 10, 'Datos del alumno - ' . $nombre_completo . ' - ' . $grado, 0, 1, 'C', 0);
-
-// Establecer la fuente y el tamaño de la fuente para la tabla
+// Información general
+$pdf->SetFont('helvetica', 'B', 12);
+$pdf->Cell(0, 10, 'Información General', 0, 1, 'L');
 $pdf->SetFont('helvetica', '', 10);
 
-// Generar la tabla vertical con los datos del alumno
-$pdf->MultiCell(0, 10, 'Nombre completo: ' . $nombre_completo, 0, 'L', 0, 1);
-$pdf->MultiCell(0, 10, 'Código de estudiante: ' . $fila['codigo_estudiante'], 0, 'L', 0, 1);
-$pdf->MultiCell(0, 10, 'Fecha de nacimiento: ' . $fila['fecha_nacimiento'], 0, 'L', 0, 1);
-$pdf->MultiCell(0, 10, 'Lugar de nacimiento: ' . $fila['lugar_nacimiento'], 0, 'L', 0, 1);
-$pdf->MultiCell(0, 10, 'Fecha de inscripción: ' . $fila['fecha_inscripcion'], 0, 'L', 0, 1);
-$pdf->MultiCell(0, 10, 'Padecimiento o alergia: ' . $fila['padecimiento_alergia'], 0, 'L', 0, 1);
-$pdf->MultiCell(0, 10, 'Nombre del padre: ' . $fila['nombre_padre'], 0, 'L', 0, 1);
-$pdf->MultiCell(0, 10, 'Cédula del padre: ' . $fila['cedula_padre'], 0, 'L', 0, 1);
-$pdf->MultiCell(0, 10, 'Ocupación del padre: ' . $fila['ocupacion_padre'], 0, 'L', 0, 1);
-$pdf->MultiCell(0, 10, 'Nombre de la madre: ' . $fila['nombre_madre'], 0, 'L', 0, 1);
-$pdf->MultiCell(0, 10, 'Cédula de la madre: ' . $fila['cedula_madre'], 0, 'L', 0, 1);
-$pdf->MultiCell(0, 10, 'Ocupación de la madre: ' . $fila['ocupacion_madre'], 0, 'L', 0, 1);
-$pdf->MultiCell(0, 10, 'Teléfono de emergencia: ' . $fila['telefono_emergencia'], 0, 'L', 0, 1);
-$pdf->MultiCell(0, 10, 'Dirección exacta: ' . $fila['direccion_exacta'], 0, 'L', 0, 1);
+// Crear tabla
+$pdf->SetFillColor(230, 230, 230);
+$pdf->SetTextColor(0, 0, 0);
+$pdf->SetFont('helvetica', '', 10);
 
-// Cerrar el resultado y la conexión a la base de datos
+$fields = [
+    'Nombre completo' => $nombre_completo,
+    'Código de estudiante' => $fila['codigo_estudiante'],
+    'Fecha de nacimiento' => $fila['fecha_nacimiento'],
+    'Lugar de nacimiento' => $fila['lugar_nacimiento'],
+    'Grado' => $grado,
+    'Fecha de inscripción' => $fila['fecha_inscripcion'],
+    'Padecimiento o alergia' => $fila['padecimiento_alergia'],
+    'Nombre del padre' => $fila['nombre_padre'],
+    'Cédula del padre' => $fila['cedula_padre'],
+    'Ocupación del padre' => $fila['ocupacion_padre'],
+    'Nombre de la madre' => $fila['nombre_madre'],
+    'Cédula de la madre' => $fila['cedula_madre'],
+    'Ocupación de la madre' => $fila['ocupacion_madre'],
+    'Teléfono de emergencia' => $fila['telefono_emergencia'],
+    'Dirección exacta' => $fila['direccion_exacta']
+];
+
+// Agregar filas a la tabla
+foreach ($fields as $key => $value) {
+    $pdf->Cell(70, 8, $key, 1, 0, 'L', 1);
+    $pdf->Cell(0, 8, $value, 1, 1, 'L', 0);
+}
+
+// Cerrar conexión
 $resultado->close();
 $mysqli->close();
 
 // Salida del PDF
 $pdf->Output('datos_alumno.pdf', 'I');
+
+?>

@@ -133,10 +133,8 @@ td a:hover {
 <script>
 function confirmarEliminacion(id) {
     if (confirm("¿Estás seguro de que deseas eliminar esta asignatura?")) {
-        // Si el usuario confirma, redirigir a eliminar_asignatura.php
         window.location.href = "eliminar_asignatura.php?id=" + id;
     } else {
-        // Si el usuario cancela la confirmación, no hacer nada
     }
 }
 </script>

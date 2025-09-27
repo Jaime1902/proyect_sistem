@@ -8,12 +8,6 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Agregar nuevo alumno</title>
-  <?php if(isset($_SESSION['sucese'])) { ?> <!-- Si hay un error en el inicio de sesión, se muestra el mensaje de error -->
-  <div class="login-error">
-    <p><?php echo $_SESSION['sucese']; ?></p>
-  </div>
-  <?php unset($_SESSION['sucese']); } ?> <!-- Se elimina el mensaje de error de la sesión para que no aparezca de nuevo -->
-  <br><br>
   <style>
     /* Estilos generales */
     * {
@@ -63,7 +57,7 @@
     }
     
     #formulario-alumno input[type="submit"] {
-      background-color: #4CAF50;
+      background-color:rgb(22, 165, 27);
       color: white;
       padding: 12px 20px;
       border: none;
@@ -101,14 +95,48 @@
     .grupo > div > div:last-child {
       margin-right: 0;
     }
+    /* Agrega estilos para las alertas */
+    .alert {
+      padding: 15px;
+      margin-top: 20px;
+      border: 1px solid transparent;
+      border-radius: 4px;
+      font-size: 16px;
+    }
+    .alert-success {
+      color: #155724;
+      background-color: #d4edda;
+      border-color: #c3e6cb;
+    }
+    .alert-danger {
+      color: #721c24;
+      background-color: #f8d7da;
+      border-color: #f5c6cb;
+    }
   </style>
 </head>
 <br><br>
 <body>
   <div id="formulario-alumno">
     <form action="agregar_alumno.php" method="post">
+      <!-- Agregar un espacio para los mensajes -->
+      <?php if (isset($_SESSION['success'])): ?>
+        <div class="alert alert-success">
+          <?php 
+            echo $_SESSION['success'];
+            unset($_SESSION['success']);
+          ?>
+        </div>
+      <?php endif; ?>
+      <?php if (isset($_SESSION['error'])): ?>
+        <div class="alert alert-danger">
+          <?php 
+            echo $_SESSION['error'];
+            unset($_SESSION['error']);
+          ?>
+        </div>
+      <?php endif; ?>
       <h1 style="text-align:center;">Agregar nuevo alumno</h1>
-      
       <div class="grupo">
 
         <legend>Información personal</legend>

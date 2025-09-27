@@ -38,6 +38,8 @@ $resultado = $stmt->get_result();
 
 <head>
 	<title>Lista de alumnos</title>
+	  <!-- Incluir el CDN de Font Awesome -->
+	  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 
 <style>
@@ -165,17 +167,24 @@ $resultado = $stmt->get_result();
 			<th>Acciones</th>
 		</tr>
 		<?php while ($fila = $resultado->fetch_assoc()) { ?>
-			<tr>
-				<td><?php echo $fila['nombre'] . ' ' . $fila['apellidos']; ?></td>
-				<td><?php echo $fila['fecha_nacimiento']; ?></td>
-				<td><?php echo $fila['nombre_grado']; ?></td>
-				<td>
-					<a href="editar_alumno.php?id=<?php echo $fila['id_alumno']; ?>">Editar</a> |
-					<a href="show_alumno.php?id=<?php echo $fila['id_alumno'];?>">Ver</a> |
-					<a href="#" class="delete-link" onclick="eliminarAlumno(<?php echo $fila['id_alumno']; ?>)">Eliminar</a>
-				</td>
-			</tr>
-		<?php } ?>
+            <tr>
+                <td><?php echo $fila['nombre'] . ' ' . $fila['apellidos']; ?></td>
+                <td><?php echo $fila['fecha_nacimiento']; ?></td>
+                <td><?php echo $fila['nombre_grado']; ?></td>
+                <td>
+                    <!-- Íconos para las acciones -->
+                    <a href="editar_alumno.php?id=<?php echo $fila['id_alumno']; ?>">
+                        <i class="fas fa-edit"></i> Editar
+                    </a> |
+                    <a href="show_alumno.php?id=<?php echo $fila['id_alumno']; ?>">
+                        <i class="fas fa-eye"></i> Ver
+                    </a> |
+                    <a href="#" class="delete-link" onclick="eliminarAlumno(<?php echo $fila['id_alumno']; ?>)">
+                        <i class="fas fa-trash-alt"></i> Eliminar
+                    </a>
+                </td>
+            </tr>
+        <?php } ?>
 	</table>
 	
 	<?php 

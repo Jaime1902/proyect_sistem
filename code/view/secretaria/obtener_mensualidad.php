@@ -11,7 +11,7 @@ if (isset($_POST['id_alumno'])) {
     // Conectarse a la base de datos
     $servername = "localhost";
     $username = "root";
-    $password = "";
+    $password = "mysql";
     $dbname = "project_db";
     $conn = new mysqli($servername, $username, $password, $dbname);
     if ($conn->connect_error) {
