@@ -40,7 +40,7 @@ $_SESSION['last_activity'] = time();
     .navbar-custom {
       background-color: #ffffff;
       box-shadow: -2px 5px 10px rgba(0.1, 1, 1, 0.5);
-      border-bottom: 5px solid #B40000;
+      border-bottom: 5px solid #00b400ff;
       padding: 15px;
     }
     .navbar-custom .navbar-nav .nav-link,
@@ -60,7 +60,7 @@ $_SESSION['last_activity'] = time();
       border-radius: 5px;
     }
     .navbar-toggle i {
-      color: #B40000;
+      color: #1eb400ff;
       font-size: 20px;
       margin-top: 5px; /* Ajusta este valor según sea necesario */
     }
@@ -212,7 +212,7 @@ li.dropdown>a:before {
                     <i class="fa-solid fa-bars-staggered"></i>
                 </button>
           <a class="navbar-brand" href="#">
-            <img src="../../img/logo/logo.png" alt="Logo" style="height: 60px; width: auto; margin-left: -15px;">
+            <img src="../../img/logo/newLogo.jpg" alt="Logo" style="height: 60px; width: auto; margin-left: -15px;">
           </a>
         </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
