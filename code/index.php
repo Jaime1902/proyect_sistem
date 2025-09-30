@@ -15,7 +15,7 @@
       <!-- Encabezado del formulario de inicio de sesión -->
       <div class="login-header">
         <!-- Logo del colegio -->
-        <img src="img\logo\logo.png" alt="Logo del colegio">
+        <img src="img\logo\newLogo.png" alt="Logo del colegio">
         <!-- Título del formulario de inicio de sesión -->
         <h1>Iniciar sesión</h1>
      </div>

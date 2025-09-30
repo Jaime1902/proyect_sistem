@@ -195,7 +195,7 @@ li.dropdown>a:before {
     font-size: 15px;
   }
   .navbar-custom {
-      border-bottom: 5px solid #B40000;
+      border-bottom: 5px solid #1eb400ff;
     }
   body {
     padding-top: 150px; /* Ajusta según sea necesario */
@@ -212,7 +212,7 @@ li.dropdown>a:before {
                     <i class="fa-solid fa-bars-staggered"></i>
                 </button>
           <a class="navbar-brand" href="#">
-            <img src="../../img/logo/newLogo.jpg" alt="Logo" style="height: 60px; width: auto; margin-left: -15px;">
+            <img src="../../img/logo/newLogo.png" alt="Logo" style="height: 60px; width: auto; margin-left: -15px;">
           </a>
         </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -220,6 +220,7 @@ li.dropdown>a:before {
           <ul class="nav navbar-nav">
             <li><a  class="nav-item nav-link" href="index.php">Inicio</a></li>
             <li><a class="nav-item nav-link" href="view_asignatura.php">Calificaciones</a></li>
+            <li><a class="nav-item nav-link" href="view_book.php">Libros</a></li>
             <li><a class="nav-item nav-link" href="close.php">Cerrar sesion</a></li>
           </ul>
           </ul>
