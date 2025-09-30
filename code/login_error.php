@@ -13,7 +13,7 @@ include 'conexion.php'; // Incluimos el archivo de conexión a la base de datos
   <body>
     <div class="container2">
       <div class="login-header">
-        <img src="img\logo\logo.png" alt="Logo del colegio">
+        <img src="img\logo\newlogo.png" alt="Logo del colegio">
         <h1>Iniciar sesión</h1>
         <?php if(isset($_SESSION['login_error'])) { ?> <!-- Si hay un error en el inicio de sesión, se muestra el mensaje de error -->
   <div class="login-error">
