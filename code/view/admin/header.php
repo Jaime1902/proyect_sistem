@@ -50,7 +50,7 @@ $_SESSION['last_activity'] = time();
 
 <body>
 <div id="header">
-    <h1>Colegio Cristiano Presbiteriano</h1>
+    <h1>Instituto Padre José Bartocci</h1>
   </div>
   <div id="menu">
     <a href="index.php">Inicio</a>
@@ -60,6 +60,7 @@ $_SESSION['last_activity'] = time();
     <a href="lobby_cursos.php">Cursos y Grados</a>
     <a href="calificaciones.php">Calificaciones</a>
     <a href="Lobby_usuario.php">Agregar usuario</a>
+    <a href="Lobby_book.php">Agregar libros</a>
     <a href="close.php">Cerrar sesión</a>
   </div>
     

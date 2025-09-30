@@ -95,7 +95,7 @@ $_SESSION['last_activity'] = time();
 <body>
 	<header class="dashboard-header">
 		<div class="container">
-			<h1 class="dashboard-brand">Colegio Cristano Prebiteriano</h1>
+			<h1>Instituto Padre José Bartocci</h1>
 		</div>
 	</header>
 

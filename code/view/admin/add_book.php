@@ -16,7 +16,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $id_asignatura = $_POST['id_asignatura'] ?? '';
     $pdf = $_FILES['pdf'] ?? null;
 
-    $carpetaDestino = "../pdfs/";
+    $carpetaDestino = "../../pdfs/";
     if (!file_exists($carpetaDestino)) mkdir($carpetaDestino, 0777, true);
 
     if ($pdf && $pdf['tmp_name']) {
@@ -111,6 +111,8 @@ $asignaturas = $conn->query("SELECT id_asignatura, nombre_asignatura FROM asigna
           <p class="mb-2 text-sm sm:text-base">Arrastra el PDF aquí o haz click para seleccionarlo</p>
           <span class="text-xs sm:text-sm text-gray-400" id="fileName">Ningún archivo seleccionado</span>
         </div>
+        <!-- Input oculto para que el archivo vaya en $_FILES['pdf'] -->
+        <input type="file" name="pdf" id="pdfInput" hidden required>
       </div>
 
       <button type="submit"
@@ -121,40 +123,31 @@ $asignaturas = $conn->query("SELECT id_asignatura, nombre_asignatura FROM asigna
     </form>
   </div>
 
-</body>
-</html>
+  <script>
+    Dropzone.autoDiscover = false;
+    const myDropzone = new Dropzone("#pdfDropzone", {
+      url: "#", // no usamos AJAX
+      autoProcessQueue: false,
+      acceptedFiles: "application/pdf",
+      maxFiles: 1,
+      addRemoveLinks: true,
+      dictDefaultMessage: "",
+      init: function () {
+        this.on("addedfile", function (file) {
+          // Pasamos el archivo al input oculto
+          const dataTransfer = new DataTransfer();
+          dataTransfer.items.add(file);
+          document.getElementById("pdfInput").files = dataTransfer.files;
 
-
-    <script>
-        Dropzone.autoDiscover = false;
-        const myDropzone = new Dropzone("#pdfDropzone", {
-            url: "#",
-            autoProcessQueue: false,
-            acceptedFiles: "application/pdf",
-            maxFiles: 1,
-            addRemoveLinks: true,
-            dictDefaultMessage: "",
-            init: function() {
-                this.on("addedfile", function(file) {
-                    document.getElementById("fileName").textContent = file.name;
-                });
-                this.on("removedfile", function() {
-                    document.getElementById("fileName").textContent = "Ningún archivo seleccionado";
-                });
-            }
+          document.getElementById("fileName").textContent = file.name;
         });
-
-        const form = document.querySelector("form");
-        form.addEventListener("submit", function(e) {
-            if (myDropzone.files.length > 0) {
-                const fileInput = document.createElement("input");
-                fileInput.type = "hidden";
-                fileInput.name = "pdf";
-                fileInput.value = myDropzone.files[0];
-                form.appendChild(fileInput);
-            }
+        this.on("removedfile", function () {
+          document.getElementById("pdfInput").value = "";
+          document.getElementById("fileName").textContent = "Ningún archivo seleccionado";
         });
-    </script>
+      }
+    });
+  </script>
 
 </body>
 </html>

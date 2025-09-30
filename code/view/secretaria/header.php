@@ -49,7 +49,7 @@ $_SESSION['last_activity'] = time();
 
 <body>
 <div id="header">
-    <h1>Colegio Cristiano Presbiteriano</h1>
+    <h1>Instituto Padre José Bartocci</h1>
   </div>
   <div id="menu">
     <a href="index.php">Inicio</a>
