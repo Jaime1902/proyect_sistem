@@ -1,40 +1,69 @@
-# proyect_sistem Notas del parches
+# 📘 Project Sistem — Notas de Parche
 
-Trabajo
-alas 23:13 se arreglo una clave de referencia en la base de datos
-password admin admin123
-secretaria secre123
+## 🔑 Credenciales de prueba
 
-************************  *version #0.0.2 alpha ****************************************************************
+| Rol | Usuario | Contraseña |
+|------|----------|-------------|
+| Administrador | admin | admin123 |
+| Secretaria | secretaria | secre123 |
+| Profesor demo | demo_profe | demo_123 |
+| Alumno demo | Jaime.suarez | Jaime123 |
+| Desarrollador (test) | ariel.mendoza | ariel123456 |
 
-Diseño mas limpio, login creado, vista de administrador, vista de secretaria creada, antivirus de inyeccion de sql en login seguridad media.
+---
 
+## 🧾 Registro de versiones
 
-******************************* *version #0.0.3 alpha  ************************************
+### 🧩 Versión 0.0.2 (Alpha)
+**Fecha:** —  
+**Cambios principales:**
+- Diseño más limpio y organizado.  
+- Creación del sistema de **login**.  
+- Implementadas las vistas de **Administrador** y **Secretaria**.  
+- Protección básica contra **inyección SQL** (nivel medio de seguridad).
 
-mejoras el login seguridad y mejor interfaz al momento de introduzir una contraseña erronia 
+---
 
+### 🔐 Versión 0.0.3 (Alpha)
+**Fecha:** —  
+**Mejoras:**
+- Refuerzo de seguridad en el sistema de login.  
+- Interfaz más amigable al introducir contraseñas erróneas.  
 
---------------------------------parche de seguridad agregado V0.1------------------------------------------------------------------------
+---
 
-contine mejor cifrado de informacion ala base de datos ala tabla login 
-contine un destrucion mediante cooki
+### 🛡️ Parche de seguridad — Versión 0.1
+**Fecha:** —  
+**Novedades:**
+- Mejor **cifrado de información** en la tabla `login`.  
+- Implementado sistema de **destrucción de sesión mediante cookies**.  
+- Añadida **animación al login**.  
+- Función para **visualizar y editar alumnos** directamente desde la interfaz.
 
+---
 
+### 🚧 Versión 0.0.4 (En proceso)
+**Próximas mejoras:**
+- Opción para **añadir y editar alumnos** con una mejor interfaz.  
+- Sistema para **gestionar clases**.  
+- Refuerzo general de **seguridad y rendimiento**.
 
-se añadio animacion al login 
-poder visualizar alos alumnos y poderlo editar desde la interfaz 
+---
 
+### ✅ Versión 0.0.6
+**Estado:** Completado  
+**Cambios realizados:**
+- Se completó todo el diseño de la interfaz.  
+- Se añadió la **vista para alumnos y profesores**.  
+- Correcciones menores de UI y estabilidad.
 
-version 0.0.4 en proseso 
+---
 
-se podra añadir alumnos se podra editar con mejor intefaz y añadir clases y mejoras de segurirar
-ariel.mendoza ariel123456
+## 🧠 Notas del desarrollador
+- Última corrección: **referencia en base de datos arreglada (23:13)**  
+- Proyecto aún en fase **Alpha**, enfocado en pulir la seguridad y la experiencia de usuario.  
 
-demo_profe
-demo_123 Jaime.suarez Jaime123
+---
 
--------------------------------0.0.6-------------------------------------
-Novedades se completaron todo lo que es interfaz se proporciono una view para alumnno y profesores}
-+
+© 2025 Jaime Alexander Suarez Carvajal
 
